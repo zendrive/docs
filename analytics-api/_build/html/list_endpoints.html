@@ -1,0 +1,268 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>List Endpoints &mdash; Zendrive 0.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/zendrive_theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Zendrive 0.0.1 documentation" href="index.html"/>
+        <link rel="next" title="Date Range" href="date_range.html"/>
+        <link rel="prev" title="Errors" href="errors.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Zendrive
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_versioning.html">API Host and Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="errors.html">Errors</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">List Endpoints</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pagination">Pagination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sorting">Sorting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="date_range.html">Date Range</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scores.html">Zendrive Scores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_endpoints.html">API Endpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webhook_api.html">Webhook Notifications API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Zendrive</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>List Endpoints</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="list-endpoints">
+<h1>List Endpoints<a class="headerlink" href="#list-endpoints" title="Permalink to this headline">¶</a></h1>
+<p>Several Zendrive API end points return a list of resources like drivers or trips. Such lists of resources can be large depending on your fleet size (number of drivers or number of trips) and time window of the query. The API provides some common parameters to process responses from these List endpoints. All of them are optional.</p>
+<div class="section" id="pagination">
+<span id="pagination-label"></span><h2>Pagination<a class="headerlink" href="#pagination" title="Permalink to this headline">¶</a></h2>
+<p>The list API methods share a common structure for pagination. Zendrive uses cursor-based pagination, using the parameters <code class="docutils literal"><span class="pre">offset</span></code> and <code class="docutils literal"><span class="pre">limit</span></code>.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="19%" />
+<col width="63%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Query Parameter</th>
+<th class="head">Default</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>offset</td>
+<td>0</td>
+<td>A cursor for use in pagination. <code class="docutils literal"><span class="pre">offset</span></code> is the index of object that defines your place in the list. For instance, if you make a list request and receive first 20 objects, your subsequent call should include <code class="docutils literal"><span class="pre">offset=20</span></code> in order to fetch the next page of the result list. The list API responses also contain <code class="docutils literal"><span class="pre">next_offset</span></code> parameter which can be used to fetch next page. When there are no more elements left in the list <code class="docutils literal"><span class="pre">next_offset</span></code> is missing from the response.</td>
+</tr>
+<tr class="row-odd"><td>limit</td>
+<td>10</td>
+<td>A limit on the number of objects to be returned. Limit can range between 1 and 50.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="sorting">
+<span id="sorting-label"></span><h2>Sorting<a class="headerlink" href="#sorting" title="Permalink to this headline">¶</a></h2>
+<p>The list API methods also allow sorting the list by different numerical attributes in both ascending and descending order. This can be done by the <code class="docutils literal"><span class="pre">order_by</span></code> and <code class="docutils literal"><span class="pre">order_type</span></code> query parameters.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="19%" />
+<col width="63%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Query Parameter</th>
+<th class="head">Default</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>order_by</td>
+<td>none</td>
+<td>Specifies the numerical attribute by which to sort the list of resources in the response. This is supported for the various zendrive score types in the <strong>score</strong> section of the response (e.g: <strong>zendrive_score</strong>) and
+numerical attributes in the <strong>info</strong> section of the response. (e.g: <strong>distance_km</strong>). By default, lists in responses are unsorted.</td>
+</tr>
+<tr class="row-odd"><td>order_type</td>
+<td>asc</td>
+<td>Specifies the sort order. <strong>asc</strong> for sorting in ascending order. <strong>desc</strong> for sorting in descending order.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="date_range.html" class="btn btn-neutral float-right" title="Date Range" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="errors.html" class="btn btn-neutral" title="Errors" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

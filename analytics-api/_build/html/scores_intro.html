@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Zendrive Scores &mdash; Sphinxio 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Sphinxio 0.0.1 documentation" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="zendrive-scores">
+<h1>Zendrive Scores<a class="headerlink" href="#zendrive-scores" title="Permalink to this headline">¶</a></h1>
+<p>The safety and efficiency of your fleet drivers can make or break your bottom line. Zendrive SDK was built to give fleet managers insight into the quality and safety of their drivers based on detailed driving behavior. By accessing phone sensors and combining that data with context about the drive time and place, Zendrive can identify both safe and risky driving - allowing fleet managers to take action before poor driving becomes a liability. The main areas of interest are cautiousness, control and focus. Zendrive mobile SDK automatically detects the start and end of driving (called trips) and collects sensor data (GPS / accelerometer / gyroscope etc) throughout the trip. Zendrive employs state of the art data analysis and machine learning algorithms to compute various driver behavior scores. The scores are expressed as a number between 0 to 100 or -1 if they are not yet available. High values correspond to better driving practices.</p>
+</div>
+<div class="section" id="ec2-settings">
+<h1>ec2_settings<a class="headerlink" href="#ec2-settings" title="Permalink to this headline">¶</a></h1>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="78%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>compute_access_key</td>
+<td>The EC2 Access Key <em>(Note: This field is not visible to non-admin users.)</em></td>
+</tr>
+<tr class="row-odd"><td>compute_secret_key</td>
+<td>The EC2 Secret Key <em>(Note: This field is not visible to non-admin users.)</em></td>
+</tr>
+<tr class="row-even"><td>aws_region</td>
+<td>The AWS region to create the cluster in.</td>
+</tr>
+<tr class="row-odd"><td>aws_preferred_availability_zone</td>
+<td>The availability zone in the region to create the cluster in.</td>
+</tr>
+<tr class="row-even"><td>vpc_id</td>
+<td>The ID of the VPC to create the cluster in.
+This VPC must have the <code class="docutils literal"><span class="pre">enableDnsHostnames</span></code> variable set to TRUE.</td>
+</tr>
+<tr class="row-odd"><td>subnet_id</td>
+<td>The ID of the subnet where the cluster must be created.
+This subnet must belong to the above vpc. And it must be a &#8216;public&#8217; subnet.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Zendrive Scores</a></li>
+<li><a class="reference internal" href="#ec2-settings">ec2_settings</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/scores_intro.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Anenth.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/scores_intro.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
