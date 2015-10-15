@@ -1,0 +1,3 @@
+# ignore html and other artifacts of sphinx build
+_build/
+
