@@ -1,17 +1,9 @@
 .. _zendrive-doc-index:
 
-Qubole Data Service Documentation
+Zendrive Documentation
 =================================
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
-    api/introduction
-    api/authentication
-    api/api_versioning
-    api/errors
-    api/list_endpoints
-    api/date_range
-    api/scores
-    api/api_endpoints
-    api/webhook_api
+    api/index.rst
