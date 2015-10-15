@@ -8,3 +8,7 @@
     max-width: 100%!important;
     overflow: visible!important;
 }
+
+.wy-nav-content {
+    max-width: 1200px!important;
+}
