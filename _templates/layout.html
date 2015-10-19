@@ -1,0 +1,13 @@
+{% extends "!layout.html" %}
+{% block sidebartitle %}
+    <a class="header-link" href="http://zendrive.com" target="_blank">
+        <img class="header-image" src="https://www.zendrive.com/static/img/home/logo.svg">
+        <span class="header-text">Zendrive</span>
+    </a>
+
+    <a href="{{ pathto(master_doc) }}" class="icon icon-home">
+        Documentation
+    </a>
+
+    {% include "searchbox.html" %}
+{% endblock %}

@@ -12,3 +12,23 @@
 .wy-nav-content {
     max-width: 1200px!important;
 }
+
+.wy-side-nav-search {
+    background-color: #343131!important;
+}
+
+.wy-side-nav-search .header-link {
+    display: block!important;
+}
+
+.wy-side-nav-search .header-image {
+    display: inline-block!important;
+    border-radius: 0!important;
+    background-color: transparent!important;
+    margin-bottom: 7px!important;
+    margin-right: 6px!important;
+}
+
+.wy-side-nav-search .header-text {
+    font-size: 24px!important;
+}
