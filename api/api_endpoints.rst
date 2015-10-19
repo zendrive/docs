@@ -6,7 +6,7 @@ List Driver Groups in a Fleet
 
 .. sourcecode:: bash
 
-   curl https://api.zendrive.com/v2/groups?apikey={ZENDRIVE_ANALYTICS_API_KEY}
+   curl https://api.zendrive.com/v1/groups?apikey={ZENDRIVE_ANALYTICS_API_KEY}
 
 .. note:: This call takes no query parameters other than ``apikey``.
 
@@ -36,7 +36,7 @@ Lookup active drivers in the given date range. An active driver is one who has a
 
 .. sourcecode:: bash
 
-   curl https://api.zendrive.com/v2/drivers?apikey={ZENDRIVE_ANALYTICS_API_KEY}
+   curl https://api.zendrive.com/v1/drivers?apikey={ZENDRIVE_ANALYTICS_API_KEY}
 
 .. note:: All query parameters except ``apikey`` are optional.
 
@@ -149,7 +149,7 @@ Fleet Scores
 
 .. sourcecode:: bash
 
-   curl https://api.zendrive.com/v2/score?apikey={ZENDRIVE_ANALYTICS_API_KEY}
+   curl https://api.zendrive.com/v1/score?apikey={ZENDRIVE_ANALYTICS_API_KEY}
 
 .. note:: All query parameters except ``apikey`` are optional.
 
@@ -249,7 +249,7 @@ Global Score Distribution
 
 .. sourcecode:: bash
 
-   curl https://api.zendrive.com/v2/global_score?apikey={ZENDRIVE_ANALYTICS_API_KEY}
+   curl https://api.zendrive.com/v1/global_score?apikey={ZENDRIVE_ANALYTICS_API_KEY}
 
 .. note:: This request takes no parameters.
 
@@ -281,7 +281,7 @@ Driver Scores
 
 .. sourcecode:: bash
 
-   curl https://api.zendrive.com/v2/driver/{driver_id}/score?apikey={ZENDRIVE_ANALYTICS_API_KEY}&fields=info,score,score_statistics
+   curl https://api.zendrive.com/v1/driver/{driver_id}/score?apikey={ZENDRIVE_ANALYTICS_API_KEY}&fields=info,score,score_statistics
 
 .. note:: All query parameters except ``apikey`` are optional.
 
@@ -388,7 +388,7 @@ List Driver Sessions
 
 .. sourcecode:: bash
 
-   curl https://api.zendrive.com/v2/driver/{driver_id}/sessions?apikey={ZENDRIVE_ANALYTICS_API_KEY}
+   curl https://api.zendrive.com/v1/driver/{driver_id}/sessions?apikey={ZENDRIVE_ANALYTICS_API_KEY}
 
 .. note:: All query parameters except ``apikey`` are optional.
 
@@ -437,7 +437,7 @@ List Driver Trips
 
 .. sourcecode:: bash
 
-   curl https://api.zendrive.com/v2/driver/{driver_id}/trips?apikey={ZENDRIVE_ANALYTICS_API_KEY}
+   curl https://api.zendrive.com/v1/driver/{driver_id}/trips?apikey={ZENDRIVE_ANALYTICS_API_KEY}
 
 .. note:: All query parameters except ``apikey`` are optional.
 
@@ -510,7 +510,7 @@ Trip Scores
 
 .. sourcecode:: bash
 
-   curl https://api.zendrive.com/v2/driver/{driver_id}/trip/{trip_id}?apikey={ZENDRIVE_ANALYTICS_API_KEY}
+   curl https://api.zendrive.com/v1/driver/{driver_id}/trip/{trip_id}?apikey={ZENDRIVE_ANALYTICS_API_KEY}
 
 .. note:: All query parameters except ``apikey`` are optional.
 
