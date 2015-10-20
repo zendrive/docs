@@ -9,10 +9,13 @@
     overflow: visible!important;
 }
 
+/* Content section width change */
 .wy-nav-content {
     max-width: 1200px!important;
 }
 
+
+/* Update sidebar's top panel */
 .wy-side-nav-search {
     background-color: #343131!important;
 }
@@ -31,4 +34,30 @@
 
 .wy-side-nav-search .header-text {
     font-size: 24px!important;
+}
+
+/*General theme*/
+a {
+    color: #3D9E75!important;
+}
+
+a:visited {
+    color: #8FA59B!important;
+}
+
+/*li a {
+    color: inherit!important;
+}*/
+
+.wy-side-nav-search a, .wy-side-nav-search a:visited{
+    color: #fff!important;
+}
+
+.wy-menu-vertical li.current a {
+    color: gray!important;
+}
+
+
+.wy-menu-vertical li.current>a {
+    color: #404040!important;
 }
