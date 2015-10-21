@@ -61,3 +61,32 @@ a:visited {
 .wy-menu-vertical li.current>a {
     color: #404040!important;
 }
+
+
+/*footer fix*/
+span.commit {
+    display: none;
+}
+
+/*background fix*/
+.wy-nav-content-wrap {
+    background: rgb(252, 252, 252)!important;
+}
+
+
+span.fa-arrow-circle-left, span.fa-arrow-circle-right {
+    display: none!important;
+}
+
+a.btn-neutral, a.btn-neutral:visited, a.btn-neutral:active {
+    background-color: #3E936C!important;
+    color: #fff!important;
+    box-shadow: none!important;
+}
+
+a.btn-neutral:hover {
+    background-color: #fff!important;
+    color: #3E936C!important;
+    border-color: #3E936C!important;
+    box-shadow: none!important;
+}
