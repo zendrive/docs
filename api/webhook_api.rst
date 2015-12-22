@@ -1,9 +1,6 @@
 Webhook Notifications API
 -------------------------
 
-List Driver Groups in a Fleet
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 Zendrive provides the ability to specify a `Webhook <http://en.wikipedia.org/wiki/Webhook>`_ where you can receive notifications of interesting events and alerts from Zendrive. The Webhook URL can be specified under **Settings** in your account, after you login to Zendrive.
 
 The Webhook URL provided must be a HTTPS URL as the notifications contain private information about your fleet. Notifications are sent as a POST request to the Webhook URL with a data block containing a json string. The json data contains the following fields.
