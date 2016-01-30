@@ -38,7 +38,7 @@
 
 /*General theme*/
 a {
-    color: #3D9E75!important;
+    color: #389F74!important;
 }
 
 a:visited {
@@ -89,4 +89,8 @@ a.btn-neutral:hover {
     color: #3E936C!important;
     border-color: #3E936C!important;
     box-shadow: none!important;
+}
+
+.rst-content code.literal {
+    color: #389F74!important;
 }
