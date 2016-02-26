@@ -25,14 +25,26 @@ Trip Scored Notification
 
 This notification is sent by Zendrive when a trip uploaded by your application is completely uploaded and scored by the Zendrive backend. Your application can now query the Zendrive API for :ref:`trip-score-label` for this trip. The notification data block contains the following fields.
 
-.. csv-table::
-    :header: "Field", "Description"
-    :widths: 15, 50
-
-    "version", "Currently, the value of this field is always 1."
-    "type", "type for this notification is **TRIP_SCORED**"
-    "driver_id", "Id of the driver whose trip was just scored."
-    "trip_id", "Id of the trip which was just scored."
++---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Request Parameter         | Description                                                                                                                                            |
++===========================+========================================================================================================================================================+
+| version                   | Currently, the value of this field is always 1.                                                                                                        |
++---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
+| type                      | type for this notification is **TRIP_SCORED**.                                                                                                         |
++---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
+| driver_id                 | Id of the driver whose trip was just scored.                                                                                                           |
++---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
+| trip_id                   | Id of the trip which was just scored.                                                                                                                  |
++---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
+| data                      | A dictionary with the following key and values, if while setting up your webhook_url, you opted for webhook_full_data. Else this will be an empty      |
+|                           | dictionary {}                                                                                                                                          |
+|                           |                                                                                                                                                        |
+|                           | - info : Returns recorded information about the trip [ Total kilometers driven, Drive time etc ].                                                      |
+|                           | - simple_path: Returns a coarse GPS trail of the trip. Useful for visualization of the trip path.                                                      |
+|                           | - score: Returns driving behavior scores about the trip [ control, focused etc ].                                                                      |
+|                           | - speed_profile: Returns the speed profile of the trip as a tuple (Driver's speed in MPH, Timestamp in ms, Speed limit on the road segment).           |
+|                           | - events: Returns events detected by Zendrive during the trip. Events like speeding, hard braking, phone use etc are returned.                         |
++---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 Sample Response
 """""""""""""""
@@ -40,4 +52,7 @@ Sample Response
 .. sourcecode:: bash
 
    curl -X POST -H "Content-Type: application/json" -d
-   '{"version":1,"type":"TRIP_SCORED","driver_id":"10101672903689391","trip_id": 1416227804134}' https://webhook'
+  '{"version":1,"type":"TRIP_SCORED","driver_id":"10101672903689391","trip_id": 1416227804134,"data": {}}' https://webhook'
+
+   curl -X POST -H "Content-Type: application/json" -d
+  '{"version":1,"type":"TRIP_SCORED","driver_id":"10101672903689391","trip_id": 1416227804134,"data": {"info": {"start_time": 1416227804134, "end_time": 1416227805000, "trip_type": "drive", "drive_time_hours": "01:02", "distance_km": 2.1, "session_id": "701f6868e7e4", "tracking_id": "56250c0f1adf6054dab4f3ed"}, "score": {"cautious_score": 88, "fuel_efficiency_score": -1, "control_score": 88, "focused_score": 90, "zendrive_score": 89}, "events": [{"event_type": "HardBrake", "start_time": 1416227804136, "end_time": 1416227804560, "latitude_start": 72.12345, "longitude_start": 11:1234, "latitude_end": 72.12354, "longitude_end": 11.1235}], "simple_path": [{"latitude": 72.12345, "longitude": 11.1234, 'time_millis': 1416227804134, "timestamp": "2016-01-26T14:59:43+05:30"}], "speed_profile": [[30.12, 1416227804134, 55]]}}' https://webhook
