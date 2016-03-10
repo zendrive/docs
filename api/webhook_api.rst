@@ -16,7 +16,7 @@ The Webhook URL provided must be a HTTPS URL as the notifications contain privat
 
 Retries
 """""""
-Zendrive will retry notifications to the Webhook if it receives a Server Error from your Webhook handler i.e HTTP response codes 500-599. Notifications will not be retried for response codes 300-499. Notifications will be retried every 2 minutes.
+Zendrive will retry notifications to the Webhook if it is unable to connect to the host of your Webhook handler. Notifications will not be retried for HTTP error codes. Notifications will be retried every 2 minutes.
 
 While it may happen rarely, it is possible that your Webhook receive duplicates of the same notification from Zendrive. Your Webhook handler should take care to handle this correctly as required.
 
@@ -36,14 +36,14 @@ This notification is sent by Zendrive when a trip uploaded by your application i
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 | trip_id                   | Id of the trip which was just scored.                                                                                                                  |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
-| data                      | A dictionary with the following key and values, if while setting up your webhook_url, you opted for webhook_full_data. Else this will be an empty      |
-|                           | dictionary {}                                                                                                                                          |
+| data                      | A dictionary with the following details about the trip. This is available only to applications who are set up to receive trip details via webhook.     |
+|                           | Contact support@zendrive.com to set this up for your application. Else this field will be an empty dictionary {}                                       |
 |                           |                                                                                                                                                        |
-|                           | - info : Returns recorded information about the trip [ Total kilometers driven, Drive time etc ].                                                      |
-|                           | - simple_path: Returns a coarse GPS trail of the trip. Useful for visualization of the trip path.                                                      |
-|                           | - score: Returns driving behavior scores about the trip [ control, focused etc ].                                                                      |
-|                           | - speed_profile: Returns the speed profile of the trip as a tuple (Driver's speed in MPH, Timestamp in ms, Speed limit on the road segment).           |
-|                           | - events: Returns events detected by Zendrive during the trip. Events like speeding, hard braking, phone use etc are returned.                         |
+|                           | - info : Recorded information about the trip [ Total kilometers driven, Drive time etc ].                                                              |
+|                           | - simple_path: A coarse GPS trail of the trip. Useful for visualization of the trip path.                                                              |
+|                           | - score: Driving behavior scores about the trip [ control, focused etc ].                                                                              |
+|                           | - speed_profile: The speed profile of the trip as a tuple (Driver's speed in MPH, Timestamp in ms, Speed limit on the road segment).                   |
+|                           | - events: Events detected by Zendrive during the trip. Events like speeding, hard braking, phone use etc are returned.                                 |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 Sample Response
