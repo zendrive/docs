@@ -569,3 +569,42 @@ Sample Response
             "control_score": 71
         }
     }
+
+
+.. _trip-delete-label:
+
+Delete Trip
+^^^^^^^^^^^
+
+This API endpoint should be used if you want to ignore an existing trip and all its data from future API responses and driver score computations. Once deleted a trip has no impact on the driver's scores any more and hence deletion will lead to change in driver scores.
+
+Note that a trip MUST already exist in Zendrive system for it to be successfully deleted (if a trip and its data is not yet uploaded to server it cannot be deleted). This API endpoint typically should be called after existence of trip is verified by a GET call or after a Webhook callback has been invoked.
+
+.. sourcecode:: bash
+
+   curl -X DELETE https://api.zendrive.com/v2/driver/{driver_id}/trip/{trip_id}?apikey={ZENDRIVE_ANALYTICS_API_KEY}
+
+.. note:: ``apikey`` is the only query parameter.
+
+
+Response in case of Success
+"""""""""""""""""""""""""""
+
+.. sourcecode:: bash
+
+    {
+        "success": true
+    }
+
+
+Sample Response in case of Failure
+""""""""""""""""""""""""""""""""""
+
+.. sourcecode:: bash
+
+    {
+        "error": "trip_id 1426131047984 is not valid"
+    }
+
+
+
