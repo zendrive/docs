@@ -542,14 +542,14 @@ Trip Scores
     "score.focus_score", "Focus score of the trip."
     "score.zendrive_score", "Zendrive score of the trip."
     "speed_profile", "An array of tuples containing Driver's speed in MPH, timestamp (Unix timestamp since epoch in milliseconds) and Speed limit on the road segment. The array is in timestamp ascending order."
-    "events", "An array containing a list of driving events that happened during the trip. The events are low level details that are reflected in scores. The events can be of a number types like **Speeding, Phone Use, Aggressive Acceleration, Hard Brake**."
+    "events", "An array containing a list of driving events that happened during the trip. The events are low level details that are reflected in scores."
     "events[i].latitude_start", "Latitude of location where the event started."
     "events[i].longitude_start", "Longitude of location where the event started."
     "events[i].latitude_end", "Latitude of location where the event ended."
-    "events[i].longitude_end Longitude of location where the event ended."
+    "events[i].longitude_end", "Longitude of location where the event ended."
     "events[i].start_time", "Timestamp of when the event started in ISO format."
     "events[i].end_time", "Timestamp of when the event ended in ISO format."
-    "events[i].event_type", "Type of driving event."
+    "events[i].event_type", "Type of driving event. The possible types are **OverSpeeding, PhoneUse, AggressiveAcceleration, HardBrake**."
 
 Sample Response
 """""""""""""""
