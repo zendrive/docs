@@ -524,7 +524,8 @@ Trip Scores
 |                           | - simple_path: Returns a coarse GPS trail of the trip. Useful for visualization of the trip path.                                                      |
 |                           | - score: Returns driving behavior scores about the trip [ control, focused etc ].                                                                      |
 |                           | - speed_profile: Returns the speed profile of the trip as a tuple (Driver's speed in MPH, Timestamp in ms, Speed limit on the road segment).           |
-|                           | - events: Returns events detected by Zendrive during the trip. Events like speeding, hard braking, phone use etc are returned.                         |
+|                           | - events: Returns events detected by Zendrive during the trip. Events like OverSpeeding, PhoneUse, AggressiveAcceleration, HardBrake and Collision are |
+|                           |   returned.                                                                                                                                            |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 .. csv-table::
@@ -549,7 +550,8 @@ Trip Scores
     "events[i].longitude_end", "Longitude of location where the event ended."
     "events[i].start_time", "Timestamp of when the event started in ISO format."
     "events[i].end_time", "Timestamp of when the event ended in ISO format."
-    "events[i].event_type", "Type of driving event. The possible types are **OverSpeeding, PhoneUse, AggressiveAcceleration, HardBrake**."
+    "events[i].event_type", "Type of driving event. The possible types are **OverSpeeding, PhoneUse, AggressiveAcceleration, HardBrake and Collision**."
+    "events[i].confidence", "Confidence level for a Collision event. The possible types are **HIGH and LOW**."
 
 Sample Response
 """""""""""""""
@@ -557,17 +559,79 @@ Sample Response
 .. sourcecode:: bash
 
     {
-        "info": {
-            "drive_time_hours": "01:17",
-            "start_time": "2014-07-29 23:05:09",
-            "distance_km": 23,
-            "end_time": "2014-07-30 00:22:33"
-        },
-        "score": {
-            "zendrive_score": 62,
-            "cautious_score": 92,
-            "control_score": 71
-        }
+       "info":{
+          "trip_max_speed":"NA",
+          "distance_km":"2.4",
+          "end_time":"2015-03-02T13:47:47-05:00",
+          "tracking_id":"NA",
+          "drive_time_hours":"00:08",
+          "start_time":"2015-03-02T13:39:44-05:00",
+          "session_id":"NA",
+          "trip_type":"drive"
+       },
+       "score":{
+          "zendrive_score":37,
+          "control_score":22,
+          "cautious_score":61,
+          "focused_score":28
+       },
+       "trip_id":"1425321584126",
+       "events":[
+          {
+             "latitude_end":39.1737515526,
+             "latitude_start":39.1746982093,
+             "longitude_end":-86.5102897492,
+             "event_type":"PhoneUse",
+             "start_time":"2015-03-02T13:39:44-05:00",
+             "longitude_start":-86.5093636444,
+             "end_time":"2015-03-02T13:39:51-05:00"
+          },
+          {
+             "latitude_end":39.1752463302,
+             "latitude_start":39.1752463302,
+             "longitude_end":-86.5269198749,
+             "event_type":"HardBrake",
+             "start_time":"2015-03-02T13:45:54-05:00",
+             "longitude_start":-86.5269198749,
+             "end_time":"2015-03-02T13:45:54-05:00"
+          },
+          {
+             "latitude_end":39.1759635662,
+             "latitude_start":39.1759686268,
+             "longitude_end":-86.5309157845,
+             "event_type":"Collision",
+             "start_time":"2015-03-02T13:46:22-05:00",
+             "longitude_start":-86.5300238164,
+             "end_time":"2015-03-02T13:46:30-05:00",
+             "confidence":"HIGH"
+          }
+       ],
+       "speed_profile":[
+          [
+             7.202946800000001,
+             1425321588071,
+             "NA"
+          ],
+          [
+             5.72656416306,
+             1425321589070,
+             "NA"
+          ]
+       ],
+       "simple_path":[
+          {
+             "latitude":39.1746982093,
+             "timestamp":"2015-03-02T13:39:44-05:00",
+             "longitude":-86.5093636444,
+             "time_millis":1425321584470
+          },
+          {
+             "latitude":39.1739835218,
+             "timestamp":"2015-03-02T13:39:48-05:00",
+             "longitude":-86.5100537986,
+             "time_millis":1425321588071
+          }
+       ]
     }
 
 
