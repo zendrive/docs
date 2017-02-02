@@ -180,20 +180,20 @@ Fleet Scores
     "info.distance_km", "Total distance in km logged by all drivers in the fleet or group."
     "info.drive_time_hours", "Total drive time over all drivers in fleet or group represented in HH:MM format."
     "info.drivers", "Number of drivers in fleet or group active during the given date range."
+    "info.last_trip_date", "Date since the last recorded trip."
     "score.focused_score", "Average Focused score across all drivers in the fleet in the given date range."
     "score.control_score", "Average Control score across all drivers in the fleet in the given date range."
-    "info.drivers", "Number of drivers in fleet or group active during the given date range."
     "score.cautious_score","Average Cautious score across all drivers in the fleet in the given date range."
     "score.zendrive_score","Average Zendrive score across all drivers in the fleet in the given date range."
-    ".daily_scores[i]","Scores for each day in the date range requested."
-    "score_statistics.daily_scores[i].date", "Date for which scores are provided in this tuple. Date format is YYYY-MM-DD."
-    "score_statistics.daily_scores[i].focused_score", "Average Focused score across all drivers in the fleet on this particular date."
-    "score_statistics.daily_scores[i].control_score", "Average Control score across all drivers in the fleet on this particular date."
-    "score_statistics.daily_scores[i].cautious_score", "Average Cautious score across all drivers in the fleet on this particular date."
-    "score_statistics.daily_scores[i].zendrive_score", "Average Zendrive score across all drivers in the fleet on this particular date."
-    "score_statistics.distributions.driver_score_distribution","The relative frequency distribution of a score over all active drivers in the fleet or group in the date range specified. This is available for each score type. Each distribution is an array of 100 values representing the relative frequency for scores from 1 to 100."
+    "daily_scores[i]","Scores for each day in the date range requested."
+    "daily_scores[i].date", "Date for which scores are provided in this tuple. Date format is YYYY-MM-DD."
+    "daily_scores[i].focused_score", "Average Focused score across all drivers in the fleet on this particular date."
+    "daily_scores[i].control_score", "Average Control score across all drivers in the fleet on this particular date."
+    "daily_scores[i].cautious_score", "Average Cautious score across all drivers in the fleet on this particular date."
+    "daily_scores[i].zendrive_score", "Average Zendrive score across all drivers in the fleet on this particular date."
     "score_statistics.distributions.day_of_week_distribution", "The distribution of a score type grouped by each day of the week of the trips in a fleet in the given date range. This is available for each score type. Each distribution is a dictionary where the key represents the day of the week (Sunday(0) to Saturday(6))."
     "score_statistics.distributions.hour_of_day_distribution", "The distribution of a score type grouped by each hour of day of trips in a fleet in the given date range. This is available for each score type. Each distribution is a dictionary where the key represents the hour of the day from 0 to 23."
+    "score_statistics.distributions.driver_score_distribution","The relative frequency distribution of a score over all active drivers in the fleet or group in the date range specified. This is available for each score type. Each distribution is an array of 100 values representing the relative frequency for scores from 1 to 100."
 
 Sample Response
 """""""""""""""
@@ -220,25 +220,25 @@ Sample Response
                 },
                 "day_of_week_distribution": { ... },
                 "hour_of_day_distribution": { ... }
-            },
-            "daily_scores": [
-                {
-                    "zendrive_score": 50,
-                    "date": "2014-11-01",
-                    "control_score": 78,
-                    "cautious_score": 71,
-                    "focused_score": 81
-                },
-                {
-                    "zendrive_score": 39,
-                    "date": "2014-11-02",
-                    "control_score": 91,
-                    "cautious_score": 52,
-                    "focused_score": 59
-                },
-                { ... }
-            ]
+            }
         },
+        "daily_scores": [
+            {
+                "zendrive_score": 50,
+                "date": "2014-11-01",
+                "control_score": 78,
+                "cautious_score": 71,
+                "focused_score": 81
+            },
+            {
+                "zendrive_score": 39,
+                "date": "2014-11-02",
+                "control_score": 91,
+                "cautious_score": 52,
+                "focused_score": 59
+            },
+            { ... }
+        ],
         "start_date": "2014-11-01",
         "end_date": "2014-11-07"
     }
@@ -310,7 +310,10 @@ Driver Scores
     "info.num_trips", "Total number of trips logged by the driver during the specified date range."
     "info.driver_start_date", "The date at which data was first logged by this driver."
     "info.attributes", "Additional attributes of the driver if it was provided during setup of the Zendrive SDK. The attributes are provided as a json string. This is **NA** if no attributed were provided."
-    "info.drive_time_hours", " Total drive time over of the driver during the specified date range represented in HH:MM format."
+    "info.drive_time_hours", "Total drive time of the driver during the specified date range represented in HH:MM format."
+    "info.highway_ratio",  "Indicates the fraction of trips recorded on highways (value lies within 0 & 1)"
+    "info.night_driving_fraction", "Indicates the fraction of night (12:00 AM to 4:00 AM local time) driving (value lies within 0 & 1)"
+    "info.device_info", "Devices theat the driver has used (model name and version number)"
     "score.focused_score", "Focused score of the driver at the end of the given data range."
     "score.control_score", "Control score of the driver at the end of the given date range."
     "score.cautious_score", "Cautious score of the driver at the end of the given data range."
@@ -334,7 +337,14 @@ Sample Response
             "num_trips": 10,
             "distance_km": "54.8",
             "driver_start_date": "2014-10-01",
-            "attributes": "NA"
+            "attributes": {
+              "LastName": "Hopkins",
+              "FirstName": "Anthony",
+              "Phone": "555-555-5555"
+            },
+            "highway_ratio": 0.0203,
+            "night_driving_fraction": 0.01874794090402367,
+            "device_info": [{missing_data: [], model: "samsung-SM-G935F", version: "23"}]
         },
         "score": {
             "zendrive_score": 57,
