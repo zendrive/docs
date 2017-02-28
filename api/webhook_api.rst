@@ -16,7 +16,7 @@ The Webhook URL provided must be a HTTPS URL as the notifications contain privat
 
 Retries
 """""""
-Zendrive will retry notifications to the Webhook if it is unable to connect to the host of your Webhook handler. Notifications will not be retried for HTTP error codes. Notifications will be retried every 2 minutes.
+Zendrive will retry notifications to the Webhook in case of all HTTP Errors, Connection Timeouts, SSL Errors, TooManyRedirectErrors. The interval between consecutive retrials increases from 2 min to 15 mins in an exponential fashion, gets capped at 15 mins, is expired after 1 day is elapsed since the first retry.
 
 While it may happen rarely, it is possible that your Webhook receive duplicates of the same notification from Zendrive. Your Webhook handler should take care to handle this correctly as required.
 
