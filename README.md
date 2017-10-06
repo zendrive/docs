@@ -8,11 +8,7 @@ git clone git@github.com:zendrive/docs.git
 Install sphinx:
 ```
 sudo pip install sphinx
-```
-
-cd into the docs/analytics-api directory:
-```
-cd docs/analytics-api
+sudo pip install sphinx_rtd_theme
 ```
 
 Build the documentation:
