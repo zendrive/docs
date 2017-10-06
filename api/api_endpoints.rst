@@ -244,38 +244,6 @@ Sample Response
     }
 
 
-Global Score Distribution
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. sourcecode:: bash
-
-   curl https://api.zendrive.com/v2/global_score?apikey={ZENDRIVE_ANALYTICS_API_KEY}
-
-.. note:: This request takes no parameters.
-
-.. csv-table::
-    :header: "Response field", "Description"
-    :widths: 15, 50
-
-    "distribution", "The relative frequency distribution of a score over the global population. This is available for each score type. Each distribution is an array of 100 values representing the relative frequency of scores from 1 to 100."
-
-Sample Response
-"""""""""""""""
-
-.. sourcecode:: bash
-
-    {
-        "score": {
-            "distributions": {
-                "zendrive_score": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ......... ],
-                "control_score": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ......],
-                "cautious_score": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ......]
-                "focused_score": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ......],
-            }
-        }
-    }
-
-
 Driver Scores
 ^^^^^^^^^^^^^
 
@@ -313,7 +281,7 @@ Driver Scores
     "info.drive_time_hours", "Total drive time of the driver during the specified date range represented in HH:MM format."
     "info.highway_ratio",  "Indicates the fraction of trips recorded on highways (value lies within 0 & 1)"
     "info.night_driving_fraction", "Indicates the fraction of night (12:00 AM to 4:00 AM local time) driving (value lies within 0 & 1)"
-    "info.device_info", "Devices theat the driver has used (model name and version number)"
+    "info.device_info", "Devices that the driver has used (model name and version number). The missing_data key lists the essential sensors that is missing (like Gyroscope) in the device."
     "score.focused_score", "Focused score of the driver at the end of the given data range."
     "score.control_score", "Control score of the driver at the end of the given date range."
     "score.cautious_score", "Cautious score of the driver at the end of the given data range."
@@ -679,6 +647,3 @@ Sample Response in case of Failure
     {
         "error": "trip_id 1426131047984 is not valid"
     }
-
-
-

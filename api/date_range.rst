@@ -9,5 +9,5 @@ All endpoints allow lookup of data in a specific date range. The date range can 
     :header: "Query Parameter", "Description"
     :widths: 15, 50
 
-    "start_date", "Lookup data from active drivers between start_date and end_date [ both inclusive ]. Date format is YYYY-MM-DD"
-    "end_date", "Lookup data from active drivers between start_date and end_date [ both inclusive ]. Date format is YYYY-MM-DD"
+    "start_date", "Lookup data from active drivers between start_date and end_date [ both inclusive ]. Date format is YYYY-MM-DD. Time zone is in UTC."
+    "end_date", "Lookup data from active drivers between start_date and end_date [ both inclusive ]. Date format is YYYY-MM-DD. Time zone is in UTC."
