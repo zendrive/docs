@@ -1,6 +1,6 @@
 Zendrive Analytics API Documentation.
 
-Clone the repo:
+Clone this repo:
 ```
 git clone git@github.com:zendrive/docs.git
 ```
