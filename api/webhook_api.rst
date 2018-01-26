@@ -9,7 +9,7 @@ The Webhook URL provided must be a HTTPS URL as the notifications contain privat
     :header: "Field", "Description"
     :widths: 15, 50
 
-    "version", "Specifies the version of the notification API being sent. Currently, the value of this field is 1. As the notification API evolves, this field will be incremented."
+    "version", "Specifies the version of the notification API being sent. Currently, the value of this field is 3. As the notification API evolves, this field will be incremented."
     "type", "The type of this notification as a string. Your application can use this to handle different types of notifications as needed. New notification types may be added incrementally in the API without a bump in the version."
     "...", "Additional fields present are notification type specific. They are described along with the description of the different notification types."
 
@@ -28,7 +28,7 @@ This notification is sent by Zendrive when a trip uploaded by your application i
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Request Parameter         | Description                                                                                                                                            |
 +===========================+========================================================================================================================================================+
-| version                   | Currently, the value of this field is always 1.                                                                                                        |
+| version                   | 	Currently, the value of this field is 3.                                                                                                       		 |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 | type                      | type for this notification is **TRIP_SCORED**.                                                                                                         |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -53,53 +53,55 @@ Sample Notification
 
    curl -X POST -H "Content-Type: application/json" -d
    '{
-    	"version": 1,
+    	"version": 3,
     	"type": "TRIP_SCORED",
     	"driver_id": "10101672903689391",
-    	"trip_id": 1416227804134,
+    	"trip_id": "1416227804134",
     	"data": {}
     }' https://webhook'
 
    curl -X POST -H "Content-Type: application/json" -d
    '{
-    	"version": 1,
+    	"version": 3,
     	"type": "TRIP_SCORED",
     	"driver_id": "10101672903689391",
-    	"trip_id": 1416227804134,
+    	"trip_id": "1416227804134",
     	"data": {
-    		"info": {
-    			"start_time": 1416227804134,
-    			"end_time": 1416227805000,
-    			"trip_type": "drive",
-    			"drive_time_hours": "01:02",
-    			"distance_km": 2.1,
-    			"session_id": "701f6868e7e4",
-    			"tracking_id": "56250c0f1adf6054dab4f3ed"
-    		},
-    		"score": {
-    			"cautious_score": 88,
-    			"fuel_efficiency_score": -1,
-    			"control_score": 88,
-    			"focused_score": 90,
-    			"zendrive_score": 89
-    		},
-    		"events": [{
-    			"event_type": "HardBrake",
-    			"start_time": 1416227804136,
-    			"end_time": 1416227804560,
-    			"latitude_start": 72.12345,
-    			"longitude_start": 11.1234,
-    			"latitude_end": 72.12354,
-    			"longitude_end": 11.1235
-    		}],
-    		"simple_path": [{
-    			"latitude": 72.12345,
-    			"longitude": 11.1234,
-    			"time_millis": 1416227804134,
-    			"timestamp": "2016-01-26T14:59:43+05:30"
-    		}],
-    		"speed_profile": [
-    			[30.12, 1416227804134, 55]
-    		]
+			"info": {
+				"insurance_period": "NA",
+				"trip_max_speed_kmph": 84.16792964453629,
+				"distance_km": 11.023,
+				"end_time": "2017-09-07T15:28:32-04:00",
+				"tracking_id": "37",
+				"duration_seconds": 8769,
+				"start_time": "2017-09-07T15:08:10-04:00",
+				"session_id": "1590149475"
+			},
+			"driving_behavior": {
+				"score": {
+					"zendrive_score": 90
+				},
+				"event_rating": {
+					"hard_brake_rating": 3,
+					"phone_use_rating": 4,
+					"rapid_acceleration_rating": 3,
+					"overspeeding_rating": 5
+				}
+			},
+			"simple_path": [],
+			"trip_id": "1504811290303",
+			"events": [{
+					"event_type": 3,
+					"event_type_name": "OVERSPEEDING",
+					"latitude_end": 40.9145881796243,
+					"longitude_end": -74.2668195549313,
+					"longitude_start": -74.2656172626412,
+					"latitude_start": 40.9139556857207,
+					"average_driver_speed_kmph": 49.535568691545045,
+					"max_driver_speed_kmph": 78.98654033076772,
+					"end_time": "2017-09-07T15:16:45-04:00",
+					"posted_speed_limit_kmph": 32.186854250516596,
+					"start_time": "2017-09-07T15:15:56-04:00"
+			}]
     	}
     }' https://webhook

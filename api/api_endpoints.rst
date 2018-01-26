@@ -6,7 +6,7 @@ List Driver Groups in a Fleet
 
 .. sourcecode:: bash
 
-   curl https://api.zendrive.com/v2/groups?apikey={ZENDRIVE_ANALYTICS_API_KEY}
+   curl https://api.zendrive.com/v3/groups?apikey={ZENDRIVE_ANALYTICS_API_KEY}
 
 .. note:: This call takes no query parameters other than ``apikey``.
 
@@ -36,40 +36,41 @@ Lookup active drivers in the given date range. An active driver is one who has a
 
 .. sourcecode:: bash
 
-   curl https://api.zendrive.com/v2/drivers?apikey={ZENDRIVE_ANALYTICS_API_KEY}
+   curl https://api.zendrive.com/v3/drivers?apikey={ZENDRIVE_ANALYTICS_API_KEY}
 
 .. note:: All query parameters except ``apikey`` are optional.
 
 
 
-+---------------------------+-------------------------------------------------------------------------------------------+
-| Request Parameter         | Description                                                                               |
-+===========================+===========================================================================================+
-| start_date                | Lookup active drivers in this date range. See :ref:`date-range-label` for description     |
-+---------------------------+-------------------------------------------------------------------------------------------+
-| end_date                  | Lookup active drivers in this date range. See :ref:`date-range-label` for description     |
-+---------------------------+-------------------------------------------------------------------------------------------+
-| fields                    | Comma separated list of fields to lookup. If nothing is specified, all data is returned.  |
-|                           |                                                                                           |
-|                           | - info : Returns information about driver [ Total kilometers driven,Drive time etc ]      |
-|                           | - score: Returns driving behavior scores [ cautious, focused, control etc]                |
-+---------------------------+-------------------------------------------------------------------------------------------+
-| limit                     | See :ref:`pagination-label` section for description.                                      |
-+---------------------------+-------------------------------------------------------------------------------------------+
-| offset                    | See :ref:`pagination-label` section for description.                                      |
-+---------------------------+-------------------------------------------------------------------------------------------+
-| ids                       | Comma separated list of driver ids for which data should be returned. Even if these       |
-|                           | drivers are not active between start_date and end_date the response will contain info and |
-|                           | score sections for these drivers.                                                         |
-+---------------------------+-------------------------------------------------------------------------------------------+
-| group_id                  | If specified the list of drivers returned will be restricted to drivers that belong to    |
-|                           | the specified group. If a list of driver ids is explicitly given as query parameter then  |
-|                           | group_id parameter has no impact on result set.                                           |
-+---------------------------+-------------------------------------------------------------------------------------------+
-| order_by                  | Sort list by score_type or info fields. See :ref:`sorting-label` section for details.     |
-+---------------------------+-------------------------------------------------------------------------------------------+
-| order_type                | Sort order. See :ref:`sorting-label` section for details.                                 |
-+---------------------------+-------------------------------------------------------------------------------------------+
++---------------------------+---------------------------------------------------------------------------------------------------------------------------+
+| Request Parameter         | Description                                                                                                               |
++===========================+===========================================================================================================================+
+| start_date                | Lookup active drivers in this date range. See :ref:`date-range-label` for description                                     |
++---------------------------+---------------------------------------------------------------------------------------------------------------------------+
+| end_date                  | Lookup active drivers in this date range. See :ref:`date-range-label` for description                                     |   
++---------------------------+---------------------------------------------------------------------------------------------------------------------------+                           
+| fields                    | Comma separated list of fields to lookup. If nothing is specified, all data is returned.                                  |
+|                           |                                                                                                                           |
+|                           | - info : Returns information about driver [ Total kilometers driven,Drive time etc ]                                      |
+|                           | - driving_behavior: Returns driver score and event ratings calculated over the interval specified.                        |                                                                                                                             
+|                           | - daily_driving_behavior: Returns driver score and event ratings calculated for each day during the interval specified.   |                                                             
++---------------------------+---------------------------------------------------------------------------------------------------------------------------+
+| limit                     | See :ref:`pagination-label` section for description.                                                                      |
++---------------------------+---------------------------------------------------------------------------------------------------------------------------+
+| offset                    | See :ref:`pagination-label` section for description.                                                                      |
++---------------------------+---------------------------------------------------------------------------------------------------------------------------+
+| ids                       | Comma separated list of driver ids for which data should be returned. Even if these                                       |
+|                           | drivers are not active between start_date and end_date the response will contain info and                                 |
+|                           | score sections for these drivers.                                                                                         |
++---------------------------+---------------------------------------------------------------------------------------------------------------------------+
+| group_id                  | If specified the list of drivers returned will be restricted to drivers that belong to                                    |
+|                           | the specified group. If a list of driver ids is explicitly given as query parameter then                                  |
+|                           | group_id parameter has no impact on result set.                                                                           |
++---------------------------+---------------------------------------------------------------------------------------------------------------------------+
+| order_by                  | Sort list by score_type or info fields. See :ref:`sorting-label` section for details.                                     |
++---------------------------+---------------------------------------------------------------------------------------------------------------------------+
+| order_type                | Sort order. See :ref:`sorting-label` section for details.                                                                 |
++---------------------------+---------------------------------------------------------------------------------------------------------------------------+
 
 
 .. csv-table::
@@ -84,64 +85,59 @@ Lookup active drivers in the given date range. An active driver is one who has a
     "drivers[i].info", "Various metrics of the driver."
     "drivers[i].info.num_trips", "Number of trips."
     "drivers[i].info.distance_km", "Distance travelled in kilometers."
-    "drivers[i].info.drive_time_hours", "Total drive time of the driver across all trips in HH:MM format."
+    "drivers[i].info.duration_seconds, "Total drive time of the driver across all trips in seconds"
     "drivers[i].info.driver_start_date", "The first time we saw data from this driver."
     "drivers[i].info.attributes", "Additional attributes of the driver if it was provided during setup of the Zendrive SDK. The attributes are returned here as a json string. This is **NA** if no attributed were provided."
-    "drivers[i].rank", "The rank of the driver within the fleet or group (if group_id was specified) based on the driver's Zendrive score."
-    "drivers[i].score", "A collection of various scores for the driver during the interval specified. Note that each score here is an average of daily scores for the driver over the given interval."
-    "drivers[i].score.cautious_score", "The Cautious score of this driver at the end of the given date range."
-    "drivers[i].score.control_score", "The Control Score of this driver at the end of the given date range."
-    "drivers[i].score.focused_score", "The Focused Score of this driver at the end of the given date range."
-    "drivers[i].score.zendrive_score", "Zendrive score of this driver at the end of the given date range."
-    "drivers[i].recommendation", "A human friendly textual recommendation for the driver to improve his/her Zendrive score."
+    "drivers[i].driving_behavior", "Returns driver score and event ratings calculated over the interval specified."
+    "drivers[i].driving_behavior.score.zendrive_score", "Zendrive score of this driver at the end of the given date range."
+    "drivers[i].driving_behavior.event_rating", "A collection of various events for the driver during the interval specified. Note that each event here is an average of daily event ratings for the driver over the given interval."
+    "drivers[i].driving_behavior.event_rating.hard_brake_rating", "The hard brake rating of this driver at the end of the given date range."
+    "drivers[i].driving_behavior.event_rating.phone_use_rating", "The phone use rating of this driver at the end of the given date range."
+    "drivers[i].driving_behavior.event_rating.rapid_acceleration_rating", "The acceleration rating of this driver at the end of the given date range."
+    "drivers[i].driving_behavior.event_rating.overspeeding_rating", "The overspeeding rating of this driver at the end of the given date range."
 
 Sample Response
 """""""""""""""
 
 .. sourcecode:: bash
 
-    {
-        "end_date": "2014-11-23",
-        "start_date": "2014-11-17"
-        "drivers": [
-            {
-                "info": {
-                    "num_trips": 15,
-                    "drive_time_hours": "03:35",
-                    "distance_km": "167.0",
-                    "driver_start_date": "2014-10-01",
-                    "attributes": "NA"
-                },
-                "driver_id": "10101672903689391",
-                "rank": "6/8",
-                "score": {
-                    "zendrive_score": 48,
-                    "control_score": 78,
-                    "cautious_score": 68,
-                    "focused_score": 73
-                },
-                "recommendation": "Phone use is distracting your performance."
-            },
-            {
-                "info": {
-                    "num_trips": 8,
-                    "drive_time_hours": "00:42",
-                    "distance_km": "20.0",
-                    "driver_start_date": "2014-10-31",
-                    "attributes": "NA"
-                },
-                "driver_id": "1023232",
-                "rank": "3/8",
-                "score": {
-                    "zendrive_score": 60,
-                    "control_score": 86,
-                    "cautious_score": 77,
-                    "focused_score": 80
-                },
-                "recommendation": "Keep your hands off the phone while driving and avoid over-speeding."
-            },
-        ],
-    }
+   {
+      "drivers": [{
+          "info": {
+              "trip_count": 10,
+              "device_info": [{
+                  "missing_data": ["gyroscope"],
+                  "model": "samsung-SM-T567V",
+                  "version": "25"
+              }],
+              "distance_km": 9.041,
+              "duration_seconds": 4519,
+              "attributes": {
+                  "phone": "+19999999999",
+                  "first_name": "John",
+                  "last_name": "User",
+                  "email": "user@example.com"
+              },
+              "driver_start_date": "2018-01-18"
+          },
+          "driving_behavior": {
+              "score": {
+                  "zendrive_score": 100
+              },
+              "event_rating": {
+                  "hard_brake_rating": 5,
+                  "phone_use_rating": 5,
+                  "rapid_acceleration_rating": 5,
+                  "overspeeding_rating": 5
+              }
+          },
+          "driver_id": "adyuv4hd83"
+      }],
+      "next_offset": 50,
+      "start_date": "2018-01-18",
+      "end_date": "2018-01-25"
+  }
+
 
 
 Fleet Scores
@@ -149,7 +145,7 @@ Fleet Scores
 
 .. sourcecode:: bash
 
-   curl https://api.zendrive.com/v2/score?apikey={ZENDRIVE_ANALYTICS_API_KEY}
+   curl https://api.zendrive.com/v3/score?apikey={ZENDRIVE_ANALYTICS_API_KEY}
 
 .. note:: All query parameters except ``apikey`` are optional.
 
@@ -161,12 +157,11 @@ Fleet Scores
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 | end_date                  | Lookup fleet score in this date range. See :ref:`date-range-label` for description                                                                     |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
-| fields                    | Comma separated list of fields to lookup. If nothing is specified, info and score are returned.                                                        |
+| fields                    | Comma separated list of fields to lookup. If nothing is specified, info, daily_driving_behavior and driving_behavior are returned.                                                        |
 |                           |                                                                                                                                                        |
 |                           | - info : Returns information about the fleet [ Total kilometers driven, Drive time etc ].                                                              |
-|                           | - score: Returns driving behavior scores [ cautious, focused, control etc] averaged over all trips.                                                    |
-|                           | - score_statistics: Returns daily driving behavior scores [ cautious, focused, control etc] along with distributions over hour of day, week and driver.|
-|                           | - daily_scores: Returns scores [ cautious, focused, control etc] for all the days in the given date range                                              |
+|                           | - driving_behavior: Returns driver score and event ratings calculated over the interval specified.                                                     |                                                                   
+|                           | - daily_driving_behavior: Returns driver score and event ratings calculated for each day during the interval specified.                                |                                                                                  
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 | group_id                  | The fleet score is computed based on data from the specified group_id within the fleet.                                                                |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -178,69 +173,68 @@ Fleet Scores
     "start_date", "Start date of the request."
     "end_date", "End date of the request."
     "info.distance_km", "Total distance in km logged by all drivers in the fleet or group."
-    "info.drive_time_hours", "Total drive time over all drivers in fleet or group represented in HH:MM format."
-    "info.drivers", "Number of drivers in fleet or group active during the given date range."
+    "info.duration_seconds", "Total drive time over all drivers in fleet or group represented in seconds"
+    "info.drivers_count", "Number of drivers in fleet or group active during the given date range."
     "info.last_trip_date", "Date since the last recorded trip."
-    "score.focused_score", "Average Focused score across all drivers in the fleet in the given date range."
-    "score.control_score", "Average Control score across all drivers in the fleet in the given date range."
-    "score.cautious_score","Average Cautious score across all drivers in the fleet in the given date range."
-    "score.zendrive_score","Average Zendrive score across all drivers in the fleet in the given date range."
-    "daily_scores[i]","Scores for each day in the date range requested."
-    "daily_scores[i].date", "Date for which scores are provided in this tuple. Date format is YYYY-MM-DD."
-    "daily_scores[i].focused_score", "Average Focused score across all drivers in the fleet on this particular date."
-    "daily_scores[i].control_score", "Average Control score across all drivers in the fleet on this particular date."
-    "daily_scores[i].cautious_score", "Average Cautious score across all drivers in the fleet on this particular date."
-    "daily_scores[i].zendrive_score", "Average Zendrive score across all drivers in the fleet on this particular date."
-    "score_statistics.distributions.day_of_week_distribution", "The distribution of a score type grouped by each day of the week of the trips in a fleet in the given date range. This is available for each score type. Each distribution is a dictionary where the key represents the day of the week (Sunday(0) to Saturday(6))."
-    "score_statistics.distributions.hour_of_day_distribution", "The distribution of a score type grouped by each hour of day of trips in a fleet in the given date range. This is available for each score type. Each distribution is a dictionary where the key represents the hour of the day from 0 to 23."
-    "score_statistics.distributions.driver_score_distribution","The relative frequency distribution of a score over all active drivers in the fleet or group in the date range specified. This is available for each score type. Each distribution is an array of 100 values representing the relative frequency for scores from 1 to 100."
+    "info.missing_data_driver_count", "Number of drivers missing one or more data types (usually missing Gyroscope)."
+    "driving_behavior", "Returns driver score and event ratings calculated over the interval specified."
+    "driving_behavior[i].score.zendrive_score", "Average Zendrive score across all drivers in the fleet in the given date range."
+    "driving_behavior[i].event_rating", "A collection of various events for the driver during the interval specified. Note that each event here is an average of daily event ratings for the driver over the given interval."
+    "driving_behavior[i].event_rating.hard_brake_rating", "Average hard brake rating across all drivers in the fleet in the given date range."
+    "driving_behavior[i].event_rating.phone_use_rating", "Average phone use rating across all drivers in the fleet in the given date range"
+    "driving_behavior[i].event_rating.rapid_acceleration_rating", "Average acceleration rating across all drivers in the fleet in the given date range."
+    "driving_behavior[i].event_rating.overspeeding_rating", "Average overspeeding rating across all drivers in the fleet in the given date range."
+    "daily_driving_behavior[i]", "Scores and Event Ratings for each day in the date range requested."
+    "daily_driving_behavior[i].date", "Date for which scores are provided in this tuple. Date format is YYYY-MM-DD."
+    "daily_driving_behavior[i].score", "A collection of various scores for the driver during the interval specified. Note that each score here is an average of daily scores for the driver over the given interval."
+    "daily_driving_behavior[i].score.zendrive_score", "Average Zendrive score across all drivers in the fleet on this particular date."
+    "daily_driving_behavior[i].event_rating", "A collection of various events for the driver during the interval specified. Note that each event here is an average of daily event ratings for the driver over the given interval."
+    "daily_driving_behavior[i].event_rating.hard_brake_rating", "Average hard brake rating across all drivers in the fleet on this particular date."
+    "daily_driving_behavior[i].event_rating.phone_use_rating", "Average phone use rating across all drivers in the fleet on this particular date."
+    "daily_driving_behavior[i].event_rating.rapid_acceleration_rating", "Average rapid acceleration rating across all drivers in the fleet on this particular date."
+    "daily_driving_behavior[i].event_rating.overspeeding_rating", "Average overspeeding rating across all drivers in the fleet on this particular date."
 
 Sample Response
 """""""""""""""
 
 .. sourcecode:: bash
 
+  
     {
         "info": {
-            "drive_time_hours": "100:45",
-            "drivers": 12,
-            "distance_km": "1694.1"
+            "duration_seconds": 9999,
+            "driver_count": 0,
+            "distance_km": 0.0,
+            "missing_data_driver_count": 0,
+            "last_trip_date": "2018-11-03"
         },
-        "score": {
-            "zendrive_score": 75,
-            "cautious_score": 71,
-            "control_score": 77,
-            "focused_score": 80
-        },
-        "score_statistics": {
-            "distributions": {
-                "driver_score_distribution": {
-                    "zendrive_score": [0.0, 0.13, 0.0, ......... ],
-                    ...
-                },
-                "day_of_week_distribution": { ... },
-                "hour_of_day_distribution": { ... }
+        "driving_behavior": {
+            "score": {
+                "zendrive_score": 80
+            },
+            "event_rating": {
+                "hard_brake_rating": 3,
+                "phone_use_rating": 3,
+                "rapid_acceleration_rating": 5,
+                "overspeeding_rating": 4
             }
         },
-        "daily_scores": [
-            {
-                "zendrive_score": 50,
-                "date": "2014-11-01",
-                "control_score": 78,
-                "cautious_score": 71,
-                "focused_score": 81
+        "daily_driving_behavior": [{
+            "date": "2017-09-12",
+            "score": {
+                "zendrive_score": 75
             },
-            {
-                "zendrive_score": 39,
-                "date": "2014-11-02",
-                "control_score": 91,
-                "cautious_score": 52,
-                "focused_score": 59
-            },
-            { ... }
+            "event_rating": {
+                "hard_brake_rating": 3,
+                "phone_use_rating": 3,
+                "rapid_acceleration_rating": 3,
+                "overspeeding_rating": 3
+            }
+        },
+         { ... }
         ],
-        "start_date": "2014-11-01",
-        "end_date": "2014-11-07"
+        "end_date": "2017-12-11",
+        "start_date": "2017-09-12"
     }
 
 
@@ -249,7 +243,7 @@ Driver Scores
 
 .. sourcecode:: bash
 
-   curl https://api.zendrive.com/v2/driver/{driver_id}/score?apikey={ZENDRIVE_ANALYTICS_API_KEY}&fields=info,score,score_statistics
+   curl https://api.zendrive.com/v3/driver/{driver_id}/score?apikey={ZENDRIVE_ANALYTICS_API_KEY}&fields=info,score,score_statistics
 
 .. note:: All query parameters except ``apikey`` are optional.
 
@@ -261,11 +255,11 @@ Driver Scores
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 | end_date                  | Lookup driver score in this date range. See :ref:`date-range-label` for description                                                                    |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
-| fields                    | Comma separated list of fields to lookup. If nothing is specified, info and score are returned.                                                        |
+| fields                    | Comma separated list of fields to lookup. If nothing is specified, info daily_driving_behavior and driving_behavior are returned.                                                        |
 |                           |                                                                                                                                                        |
 |                           | - info : Returns information about driver [ Total kilometers driven, Drive time etc ]                                                                  |
-|                           | - score: Returns latest driving behavior scores [ cautious, focused, control etc]                                                                      |
-|                           | - score_statistics: Returns daily driving behavior scores [ cautious, focused, control etc] along with hourly and weekly distributions                 |
+|                           | - driving_behavior: Returns latest driving behavior scores [ cautious, focused, control etc]                                                           |
+|                           | - daily_driving_behavior: Returns driver score and event ratings calculated for each day during the interval specified.                                |                                                                                  
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 .. csv-table::
@@ -275,24 +269,29 @@ Driver Scores
     "start_date", "Starting date for driver score returned in response. Same as request parameter if specified, else the start date considered by the API by default."
     "end_date", "End date for driver score returned in response. Same as request parameter if specified, else the start date considered by the API by default."
     "info.distance_km", "Total distance in km logged by the driver during the specified date range."
-    "info.num_trips", "Total number of trips logged by the driver during the specified date range."
+    "info.trip_count", "Total number of trips logged by the driver during the specified date range."
     "info.driver_start_date", "The date at which data was first logged by this driver."
     "info.attributes", "Additional attributes of the driver if it was provided during setup of the Zendrive SDK. The attributes are provided as a json string. This is **NA** if no attributed were provided."
-    "info.drive_time_hours", "Total drive time of the driver during the specified date range represented in HH:MM format."
+    "info.duration_seconds", "Total drive time of the driver during the specified date range represented in seconds"
     "info.highway_ratio",  "Indicates the fraction of trips recorded on highways (value lies within 0 & 1)"
     "info.night_driving_fraction", "Indicates the fraction of night (12:00 AM to 4:00 AM local time) driving (value lies within 0 & 1)"
     "info.device_info", "Devices that the driver has used (model name and version number). The missing_data key lists the essential sensors that is missing (like Gyroscope) in the device."
-    "score.focused_score", "Focused score of the driver at the end of the given data range."
-    "score.control_score", "Control score of the driver at the end of the given date range."
-    "score.cautious_score", "Cautious score of the driver at the end of the given data range."
-    "score.zendrive_score", "Zendrive score of the driver at the end of the given data range."
-    "score_statistics.focused_score", "Focused score of the driver at the end of the given data range coupled with a difference from the same score at the start of the date range."
-    "score_statistics.control_score", "Control score of the driver at the end of the data range coupled with a difference from the same score at the start of the date range."
-    "score_statistics.cautious_score", "Cautious score of the driver at the end of the given data range coupled with a difference from the same score at the start of the date range."
-    "score_statistics.zendrive_score", "Zendrive score of the driver at the end of the given data range coupled with a difference from the same score at the start of the date range."
-    "score_statistics.distributions.hour_of_day_distribution", "The distribution of a score type grouped by each hour of the day of each trip in the given date range. This is available for each score type. Each distribution is a dictionary where the key represents the hour of the day from 0 to 23."
-    "score.distributions.day_of_week_distribution", "The distribution of a score type grouped by each day of the week of each trip in the given date range. This is available for each score type. Each distribution is a dictionary where the key represents the day of the week (Sunday(0) to Saturday(6))."
-    "daily_scores", "Daily scores for the driver. This score is based on trips logged by the driver on each day in the given date range.This is returned as a list with an element for each day where trips were logged by the driver in the given date range. All score types are computed."
+    "driving_behavior", "Returns driver score and event ratings calculated over the interval specified."
+    "driving_behavior[i].score.zendrive_score", "Zendrive score of the driver at the end of the given data range."
+    "driving_behavior[i].event_rating", "A collection of various events for the driver during the interval specified. Note that each event here is an average of daily event ratings for the driver over the given interval."
+    "driving_behavior[i].event_rating.hard_brake_rating", "Average hard brake rating of the driver at the end of the given date range."
+    "driving_behavior[i].event_rating.phone_use_rating", "Average phone use rating of the driver at the end of the given date range."
+    "driving_behavior[i].event_rating.rapid_acceleration_rating", "Average rapid acceleration of the driver at the end of the given date range."
+    "driving_behavior[i].event_rating.overspeeding_rating", "Average overspeeding rating of the driver at the end of the given date range."
+    "daily_driving_behavior[i]","Scores for each day in the date range requested."
+    "daily_driving_behavior[i].date", "Date for which scores are provided in this tuple. Date format is YYYY-MM-DD."
+    "daily_driving_behavior[i].score", "A collection of various scores for the driver during the interval specified. Note that each score here is an average of daily scores for the driver over the given interval."
+    "daily_driving_behavior[i].score.zendrive_score", "Average Zendrive score of this driver at the end of the given date range."
+    "daily_driving_behavior[i].event_rating", "A collection of various events for the driver during the interval specified. Note that each event here is an average of daily event ratings for the driver over the given interval."
+    "daily_driving_behavior[i].event_rating.hard_brake_rating", "Average hard brake rating across all drivers in the fleet on this particular date."
+    "daily_driving_behavior[i].event_rating.phone_use_rating", "Average phone use rating across all drivers in the fleet on this particular date."
+    "daily_driving_behavior[i].event_rating.rapid_acceleration_rating", "Average rapid acceleration rating across all drivers in the fleet on this particular date."
+    "daily_driving_behavior[i].event_rating.overspeeding_rating", "Average overspeeding rating across all drivers in the fleet on this particular date."
 
 Sample Response
 """""""""""""""
@@ -301,64 +300,43 @@ Sample Response
 
     {
         "info": {
-            "drive_time_hours": "23:48",
-            "num_trips": 10,
-            "distance_km": "54.8",
-            "driver_start_date": "2014-10-01",
+            "trip_count": 4,
+            "night_driving_fraction": 0.0,
+            "device_info": [],
+            "distance_km": 35.389,
+            "duration_seconds": 9468,
             "attributes": {
-              "LastName": "Hopkins",
-              "FirstName": "Anthony",
-              "Phone": "555-555-5555"
+                "first_name": "John",
+                "last_name": " User",
+                "email": "user@example.com"
             },
-            "highway_ratio": 0.0203,
-            "night_driving_fraction": 0.01874794090402367,
-            "device_info": [{missing_data: [], model: "samsung-SM-G935F", version: "23"}]
+            "driver_start_date": "2017-04-25"
         },
-        "score": {
-            "zendrive_score": 57,
-            "control_score": 88,
-            "cautious_score": 70,
-            "focused_score": 80
-        },
-        "score_statistics"": {
-            "zendrive_score": {
-                "score": 57,
-                "delta": 0
+        "driving_behavior": {
+            "score": {
+                "zendrive_score": 79
             },
-            "control_score": {
-                "score": 88,
-                "delta": 0
-            },
-            "distributions": {
-                "hour_of_day_distribution": {
-                    "zendrive_score": { ... },
-                    "control_score": { ... },
-                    "cautious_score": { ... },
-                    "focused_score": { ... }
-                },
-                "day_of_week_distribution": { ... }
-            },
-            "cautious_score": {
-                "score": 70,
-                "delta": 0
-            },
-            "focused_score": {
-                "score": 80,
-                "delta": 0
+            "event_rating": {
+                "hard_brake_rating": 5,
+                "phone_use_rating": 4,
+                "rapid_acceleration_rating": 3,
+                "overspeeding_rating": 4
             }
         },
-        "daily_scores": [
-            {
-                "zendrive_score": 57,
-                "date": "2014-11-04",
-                "control_score": 88,
-                "cautious_score": 70,
-                "focused_score": 80
+        "daily_driving_behavior": [{
+            "date": "2017-09-12",
+            "score": {
+                "zendrive_score": 75
             },
-            { ... }
-        ],
-        "start_date": "2014-11-01",
-        "end_date": "2014-11-07"
+            "event_rating": {
+                "hard_brake_rating": 3,
+                "phone_use_rating": 3,
+                "rapid_acceleration_rating": 3,
+                "overspeeding_rating": 3
+            }
+        }],
+        "end_date": "2017-09-06",
+        "start_date": "2017-09-01"
     }
 
 List Driver Sessions
@@ -366,7 +344,7 @@ List Driver Sessions
 
 .. sourcecode:: bash
 
-   curl https://api.zendrive.com/v2/driver/{driver_id}/sessions?apikey={ZENDRIVE_ANALYTICS_API_KEY}
+   curl https://api.zendrive.com/v3/driver/{driver_id}/sessions?apikey={ZENDRIVE_ANALYTICS_API_KEY}
 
 .. note:: All query parameters except ``apikey`` are optional.
 
@@ -415,7 +393,7 @@ List Driver Trips
 
 .. sourcecode:: bash
 
-   curl https://api.zendrive.com/v2/driver/{driver_id}/trips?apikey={ZENDRIVE_ANALYTICS_API_KEY}
+   curl https://api.zendrive.com/v3/driver/{driver_id}/trips?apikey={ZENDRIVE_ANALYTICS_API_KEY}
 
 .. note:: All query parameters except ``apikey`` are optional.
 
@@ -425,7 +403,7 @@ List Driver Trips
 
     "start_date", "Lookup trips from a driver in this date range.  See :ref:`date-range-label` for description."
     "end_date", "Lookup trips from a driver in this date range.  See :ref:`date-range-label` for description."
-    "fields", "Comma separated list of fields to lookup. If nothing is specified, all data is returned. ``info`` : Returns information about driver [ Total kilometers driven, Drive time etc ]. ``score``: Returns driving behavior scores [ cautious, focused, control etc]"
+    "fields", "Comma separated list of fields to lookup. If nothing is specified, all data is returned. ``info`` : Returns information about driver [ Total kilometers driven, Drive time etc ]. ``driving_behavior``: Returns driver score and event ratings."
     "session_ids", "A comma separated list of session ids to filter trips by. Only trips tagged by the given session ids are returned. Sessions are specified in the Zendrive SDK. The mobile application can provide session ids to the SDK to tag trips with."
     "tracking_ids", "A comma separated list of tracking ids to filter trips by. Only trips tagged by the given tracking ids are returned. Tracking ids are specified by the mobile application when recording a trip in manual mode."
     "limit", "See :ref:`pagination-label` section for description."
@@ -442,43 +420,51 @@ List Driver Trips
     "trips", "List of trips from the driver in the given date range."
     "trips[i].trip_id", "Unique Id of the trip assigned by Zendrive."
     "trips[i].info.distance_km", "Length of the trip in km."
-    "trips[i].info.drive_time_hours", "Total duration of the trip in HH:MM format."
+    "trips[i].info.duration_seconds", "Total duration of the trip in seconds."
+    "trips[i].info.trip_max_speed_kmph", "Maximum speed reached during the duration of this trip"
     "trips[i].info.start_time", "Start time of trip in ISO format."
     "trips[i].info.end_time", "End time of trip in ISO format."
     "trips[i].info.tracking_id", "Tracking id of the trip if specified in the Zendrive SDK. This is available only for trips recorded in manual mode of the SDK."
     "trips[i].info.session_id", "Id of the session this trip belongs to. This is available if the session was live in the Zendrive SDK when the trip was recorded."
-    "trips[i].score.control_score", "Control score of the trip."
-    "trips[i].score.cautious_score", "Cautious score of the trip."
-    "trips[i].score.focused_score", "Focused score of the trip."
-    "trips[i].score.zendrive_score", "Zendrive score of the trip."
+    "driving_behavior[i].score.zendrive_score", "Zendrive score of the trip."
+    "driving_behavior[i].event_rating", "A collection of various events for the driver during the interval specified. Note that each event here is an average of daily event ratings for the driver over the given interval."
+    "driving_behavior[i].event_rating.hard_brake_rating", "Hard brake rating of the trip."
+    "driving_behavior[i].event_rating.phone_use_rating", "Phone use of rating"
+    "driving_behavior[i].event_rating.rapid_acceleration_rating", "Rapid acceleration rating of the trip."
+    "driving_behavior[i].event_rating.overspeeding_rating", "Overspeeding rating of the trip."
 
 Sample Response
 """""""""""""""
 
 .. sourcecode:: bash
 
-    {
-        "trips": [
-            {
-                "info": {
-                    "start_time": "2014-11-17 07:36:44-05:00",
-                    "session_id": "542ebb4ee98f7c2438f6c140",
-                    "distance_km": "13.7",
-                    "end_time": "2014-11-17 07:55:24-05:00",
-                    "tracking_id": "545e88bdfd3115a27ff5ebb1",
-                    "drive_time_hours": "00:18"
-                },
+  {
+        "trips": [{
+            "info": {
+                "insurance_period": "NA",
+                "trip_max_speed_kmph": 96.40792534541973,
+                "distance_km": 25.78,
+                "end_time": "2017-09-29T13:55:16-04:00",
+                "tracking_id": "39",
+                "drive_time_hours": "00:39",
+                "start_time": "2017-09-29T13:16:11-04:00",
+                "session_id": "1613190012"
+            },
+            "driving_behavior": {
                 "score": {
-                    "zendrive_score": 74,
-                    "control_score": 97,
-                    "cautious_score": 76,
-                    "focused_score": 87
+                    "zendrive_score": 84
                 },
-                "trip_id": 1416227804134
-            }
-        ]
-        "end_date": "2014-11-22",
-        "start_date": "2014-11-16"
+                "event_rating": {
+                    "hard_brake_rating": 3,
+                    "phone_use_rating": 4,
+                    "rapid_acceleration_rating": 4,
+                    "overspeeding_rating": 3
+                }
+            },
+            "trip_id": "1506705371408"
+        }],
+        "end_date": "2017-09-30",
+        "start_date": "2017-09-01"
     }
 
 .. _trip-score-label:
@@ -488,7 +474,7 @@ Trip Scores
 
 .. sourcecode:: bash
 
-   curl https://api.zendrive.com/v2/driver/{driver_id}/trip/{trip_id}?apikey={ZENDRIVE_ANALYTICS_API_KEY}
+   curl https://api.zendrive.com/v3/driver/{driver_id}/trip/{trip_id}?apikey={ZENDRIVE_ANALYTICS_API_KEY}
 
 .. note:: All query parameters except ``apikey`` are optional.
 
@@ -496,11 +482,11 @@ Trip Scores
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Request Parameter         | Description                                                                                                                                            |
 +===========================+========================================================================================================================================================+
-| fields                    | Comma separated list of fields to lookup. If nothing is specified, this defaults to "info,score".                                                      |
+| fields                    | Comma separated list of fields to lookup. If nothing is specified, this defaults to "info,driving_behavior".                                                      |
 |                           |                                                                                                                                                        |
 |                           | - info : Returns recorded information about the trip [ Total kilometers driven, Drive time etc ].                                                      |
 |                           | - simple_path: Returns a coarse GPS trail of the trip. Useful for visualization of the trip path.                                                      |
-|                           | - score: Returns driving behavior scores about the trip [ control, focused etc ].                                                                      |
+|                           | - driving_behavior: Returns driver score and event ratings calculated over the interval specified.                                                         |
 |                           | - speed_profile: Returns the speed profile of the trip as a tuple (Driver's speed in MPH, Timestamp in ms, Speed limit on the road segment).           |
 |                           | - events: Returns events detected by Zendrive during the trip. Events like OverSpeeding, PhoneUse, AggressiveAcceleration, HardBrake and Collision are |
 |                           |   returned.                                                                                                                                            |
@@ -509,17 +495,22 @@ Trip Scores
 .. csv-table::
     :header: "Response Field", "Description"
     :widths: 15, 50
-
+    
+    "trip_max_speed", "Maximum speed reached during the duration of this trip"
+    "trip_id", "Unique Id assigned by Zendrive for the trip where the event occurred."
     "info.distance_km", "Distance in km of the trip."
-    "info.drive_time_hours", "Total duration of the trip represented in HH:MM format."
+    "info.duration_seconds", "Total duration of the trip represented in seconds"
     "info.start_time ", "Start time of trip in ISO format."
     "info.end_time", "End time of trip in ISO format"
     "info.session_id", "Session id attached the trip if specified in the Zendrive SDK when the trip was recorded."
     "simple_path", "An array of latitude, longitude, timestamp tuples representing a simplified path of the trip. The timestamp is in ISO format."
-    "score.control_score", "Control score of the trip."
-    "score.cautious_score", "Cautious score of the trip."
-    "score.focus_score", "Focus score of the trip."
-    "score.zendrive_score", "Zendrive score of the trip."
+    "driving_behavior", Returns driver score and event ratings calculated over the interval specified."
+    "driving_behavior[i].score.zendrive_score", "Zendrive score of the trip."
+    "driving_behavior[i].event_rating", "A collection of various events for the driver during the interval specified. Note that each event here is an average of daily event ratings for the driver over the given interval."
+    "driving_behavior[i].event_rating.hard_brake_rating", "Hard brake rating of the trip"
+    "driving_behavior[i].event_rating.phone_use_rating", "Phone use rating of the trip"
+    "driving_behavior[i].event_rating.rapid_acceleration_rating", "Acceleration rating of the trip"
+    "driving_behavior[i].event_rating.overspeeding_rating", "Overspeeding rating of the trip"
     "speed_profile", "An array of tuples containing Driver's speed in MPH, timestamp (Unix timestamp since epoch in milliseconds) and Speed limit on the road segment. The array is in timestamp ascending order."
     "events", "An array containing a list of driving events that happened during the trip. The events are low level details that are reflected in scores."
     "events[i].latitude_start", "Latitude of location where the event started."
@@ -528,8 +519,12 @@ Trip Scores
     "events[i].longitude_end", "Longitude of location where the event ended."
     "events[i].start_time", "Timestamp of when the event started in ISO format."
     "events[i].end_time", "Timestamp of when the event ended in ISO format."
-    "events[i].event_type", "Type of driving event. The possible types are **OverSpeeding, PhoneUse, AggressiveAcceleration, HardBrake and Collision**."
-    "events[i].confidence", "Confidence level for a Collision event. The possible types are **HIGH and LOW**."
+    "events[i].event_type", "Numeric value associated with event. The possible values are 0 for 'HARD_BRAKE, 1 for RAPID_ACCELERATION, 2 for PHONE_USE,  3 for OVERSPEEDING and 4 for COLLISION"
+    "events[i].event_type_name", "Type of driving event. The possible types are **OVERSPEEDING, PHONE
+    , RAPID_ACCELERATION, HARD_BRAKE and COLLISION**."
+    "events[i].average_driver_speed_kmph", "Average speed of the driver during the event. This is valid only for OVERSPEEDING event."
+    "events[i].max_driver_speed_kmph", "Maximum speed of the driver during the event. This is valid only for OVERSPEEDING event"
+    "events[i].posted_speed_limit_kmph", "Posted legal speed limit where the event occurred. This is valid only for OVERSPEEDING event"
 
 Sample Response
 """""""""""""""
@@ -537,79 +532,88 @@ Sample Response
 .. sourcecode:: bash
 
     {
-       "info":{
-          "trip_max_speed":"NA",
-          "distance_km":"2.4",
-          "end_time":"2015-03-02T13:47:47-05:00",
-          "tracking_id":"NA",
-          "drive_time_hours":"00:08",
-          "start_time":"2015-03-02T13:39:44-05:00",
-          "session_id":"NA",
-          "trip_type":"drive"
-       },
-       "score":{
-          "zendrive_score":37,
-          "control_score":22,
-          "cautious_score":61,
-          "focused_score":28
-       },
-       "trip_id":"1425321584126",
-       "events":[
-          {
-             "latitude_end":39.1737515526,
-             "latitude_start":39.1746982093,
-             "longitude_end":-86.5102897492,
-             "event_type":"PhoneUse",
-             "start_time":"2015-03-02T13:39:44-05:00",
-             "longitude_start":-86.5093636444,
-             "end_time":"2015-03-02T13:39:51-05:00"
-          },
-          {
-             "latitude_end":39.1752463302,
-             "latitude_start":39.1752463302,
-             "longitude_end":-86.5269198749,
-             "event_type":"HardBrake",
-             "start_time":"2015-03-02T13:45:54-05:00",
-             "longitude_start":-86.5269198749,
-             "end_time":"2015-03-02T13:45:54-05:00"
-          },
-          {
-             "latitude_end":39.1759635662,
-             "latitude_start":39.1759686268,
-             "longitude_end":-86.5309157845,
-             "event_type":"Collision",
-             "start_time":"2015-03-02T13:46:22-05:00",
-             "longitude_start":-86.5300238164,
-             "end_time":"2015-03-02T13:46:30-05:00",
-             "confidence":"HIGH"
-          }
-       ],
-       "speed_profile":[
-          [
-             7.202946800000001,
-             1425321588071,
-             "NA"
-          ],
-          [
-             5.72656416306,
-             1425321589070,
-             "NA"
-          ]
-       ],
-       "simple_path":[
-          {
-             "latitude":39.1746982093,
-             "timestamp":"2015-03-02T13:39:44-05:00",
-             "longitude":-86.5093636444,
-             "time_millis":1425321584470
-          },
-          {
-             "latitude":39.1739835218,
-             "timestamp":"2015-03-02T13:39:48-05:00",
-             "longitude":-86.5100537986,
-             "time_millis":1425321588071
-          }
-       ]
+        "info": {
+            "insurance_period": "NA",
+            "trip_max_speed_kmph": 84.16792964453629,
+            "distance_km": 11.023,
+            "end_time": "2017-09-07T15:28:32-04:00",
+            "tracking_id": "37",
+            "duration_seconds": 987,
+            "start_time": "2017-09-07T15:08:10-04:00",
+            "session_id": "1590149475"
+        },
+        "driving_behavior": {
+            "score": {
+                "zendrive_score": 88
+            },
+            "event_rating": {
+                "hard_brake_rating": 3,
+                "phone_use_rating": 4,
+                "rapid_acceleration_rating": 4,
+                "overspeeding_rating": 5
+            }
+        },
+        "simple_path": [{
+                "latitude": 40.7048046,
+                "timestamp": "2018-01-25T16:28:35.318000-05:00",
+                "longitude": -73.7980828,
+                "time_millis": 1516915715318
+            },{
+                "latitude": 40.7048046,
+                "timestamp": "2018-01-25T16:29:10.805000-05:00",
+                "longitude": -73.7980314,
+                "time_millis": 1516915750805
+            }
+        ],
+        "trip_id": "1504811290303",
+        "events": [{
+            "event_type": 3,
+            "event_type_name": "OVERSPEEDING",
+            "latitude_end": 40.9145881796243,
+            "longitude_end": -74.2668195549313,
+            "longitude_start": -74.2656172626412,
+            "latitude_start": 40.9139556857207,
+            "average_driver_speed_kmph": 49.535568691545045,
+            "max_driver_speed_kmph": 78.98654033076772,
+            "end_time": "2017-09-07T15:16:45-04:00",
+            "posted_speed_limit_kmph": 32.186854250516596,
+            "start_time": "2017-09-07T15:15:56-04:00"
+        }, {
+            "latitude_end": 40.9182284027719,
+            "latitude_start": 40.9182284027719,
+            "longitude_end": -74.2960023321903,
+            "event_type": 0,
+            "event_type_name": "HARD_BRAKE",
+            "start_time": "2017-09-07T15:20:28-04:00",
+            "longitude_start": -74.2960023321903,
+            "end_time": "2017-09-07T15:20:28-04:00"
+        }, {
+            "latitude_start": 39.7209858723,
+            "event_type": 2,
+            "event_type_name": "PHONE_USE",
+            "start_time": "2015-03-10T18:31:58-06:00",
+            "longitude_end": -104.932609689,
+            "longitude_start": -104.931542739,
+            "latitude_end": 39.7209808562,
+            "end_time": "2015-03-10T18:32:07-06:00"
+        }],
+        "speed_profile":[
+            [
+                0.6710820000000001,
+                1516915715318,
+                "NA" 
+            ],
+            [
+                1.0961006,
+                1516915716798,
+                "NA"
+            ],
+            [
+                0.6710820000000001,
+                1516915718789,
+                "NA"
+            ]
+        ]
     }
 
 
@@ -624,7 +628,7 @@ Note that a trip MUST already exist in Zendrive system for it to be successfully
 
 .. sourcecode:: bash
 
-   curl -X DELETE https://api.zendrive.com/v2/driver/{driver_id}/trip/{trip_id}?apikey={ZENDRIVE_ANALYTICS_API_KEY}
+   curl -X DELETE https://api.zendrive.com/v3/driver/{driver_id}/trip/{trip_id}?apikey={ZENDRIVE_ANALYTICS_API_KEY}
 
 .. note:: ``apikey`` is the only query parameter.
 
