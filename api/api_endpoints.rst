@@ -85,7 +85,7 @@ Lookup active drivers in the given date range. An active driver is one who has a
     "drivers[i].info", "Various metrics of the driver."
     "drivers[i].info.num_trips", "Number of trips."
     "drivers[i].info.distance_km", "Distance travelled in kilometers."
-    "drivers[i].info.duration_seconds, "Total drive time of the driver across all trips in seconds"
+    "drivers[i].info.duration_seconds", "Total drive time of the driver across all trips in seconds"
     "drivers[i].info.driver_start_date", "The first time we saw data from this driver."
     "drivers[i].info.attributes", "Additional attributes of the driver if it was provided during setup of the Zendrive SDK. The attributes are returned here as a json string. This is **NA** if no attributed were provided."
     "drivers[i].driving_behavior", "Returns driver score and event ratings calculated over the interval specified."
@@ -157,7 +157,7 @@ Fleet Scores
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 | end_date                  | Lookup fleet score in this date range. See :ref:`date-range-label` for description                                                                     |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
-| fields                    | Comma separated list of fields to lookup. If nothing is specified, info, daily_driving_behavior and driving_behavior are returned.                                                        |
+| fields                    | Comma separated list of fields to lookup. If nothing is specified, info, daily_driving_behavior and driving_behavior are returned.                     |                                   
 |                           |                                                                                                                                                        |
 |                           | - info : Returns information about the fleet [ Total kilometers driven, Drive time etc ].                                                              |
 |                           | - driving_behavior: Returns driver score and event ratings calculated over the interval specified.                                                     |                                                                   
@@ -243,7 +243,7 @@ Driver Scores
 
 .. sourcecode:: bash
 
-   curl https://api.zendrive.com/v3/driver/{driver_id}/score?apikey={ZENDRIVE_ANALYTICS_API_KEY}&fields=info,score,score_statistics
+   curl https://api.zendrive.com/v3/driver/{driver_id}/score?apikey={ZENDRIVE_ANALYTICS_API_KEY}
 
 .. note:: All query parameters except ``apikey`` are optional.
 
@@ -255,7 +255,7 @@ Driver Scores
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 | end_date                  | Lookup driver score in this date range. See :ref:`date-range-label` for description                                                                    |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
-| fields                    | Comma separated list of fields to lookup. If nothing is specified, info daily_driving_behavior and driving_behavior are returned.                                                        |
+| fields                    | Comma separated list of fields to lookup. If nothing is specified, info daily_driving_behavior and driving_behavior are returned.                      |                                  
 |                           |                                                                                                                                                        |
 |                           | - info : Returns information about driver [ Total kilometers driven, Drive time etc ]                                                                  |
 |                           | - driving_behavior: Returns latest driving behavior scores [ cautious, focused, control etc]                                                           |
@@ -482,11 +482,11 @@ Trip Scores
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Request Parameter         | Description                                                                                                                                            |
 +===========================+========================================================================================================================================================+
-| fields                    | Comma separated list of fields to lookup. If nothing is specified, this defaults to "info,driving_behavior".                                                      |
+| fields                    | Comma separated list of fields to lookup. If nothing is specified, this defaults to 'info,driving_behavior'.                                           |
 |                           |                                                                                                                                                        |
 |                           | - info : Returns recorded information about the trip [ Total kilometers driven, Drive time etc ].                                                      |
 |                           | - simple_path: Returns a coarse GPS trail of the trip. Useful for visualization of the trip path.                                                      |
-|                           | - driving_behavior: Returns driver score and event ratings calculated over the interval specified.                                                         |
+|                           | - driving_behavior: Returns driver score and event ratings calculated over the interval specified.                                                     |
 |                           | - speed_profile: Returns the speed profile of the trip as a tuple (Driver's speed in MPH, Timestamp in ms, Speed limit on the road segment).           |
 |                           | - events: Returns events detected by Zendrive during the trip. Events like OverSpeeding, PhoneUse, AggressiveAcceleration, HardBrake and Collision are |
 |                           |   returned.                                                                                                                                            |
