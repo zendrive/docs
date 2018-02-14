@@ -27,6 +27,6 @@ The list API methods also allow sorting the list by different numerical attribut
     :header: "Query Parameter", "Default", "Description"
     :widths: 15, 15, 50
 
-    "order_by", "none", "Specifies the numerical attribute by which to sort the list of resources in the response. This is supported for the various zendrive score types in the **score** section of the response (e.g: **zendrive_score**) and
-    numerical attributes in the **info** section of the response. (e.g: **distance_km**). By default, lists in responses are unsorted."
+    "order_by", "none", "Specifies the numerical attribute by which to sort the list of resources in the response. This is supported for the zendrive score and the various event_rating types in the **driving_behavior** section of the response (e.g: **zendrive_score**, **overspeeding_rating**, **phone_use_rating**) and
+    numerical attributes in the **info** section of the response (e.g: **distance_km**, **duration_seconds**). **start_time** is also a valid field. By default, lists in responses are unsorted."
     "order_type", "asc", "Specifies the sort order. **asc** for sorting in ascending order. **desc** for sorting in descending order."

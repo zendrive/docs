@@ -47,13 +47,13 @@ Lookup active drivers in the given date range. An active driver is one who has a
 +===========================+===========================================================================================================================+
 | start_date                | Lookup active drivers in this date range. See :ref:`date-range-label` for description                                     |
 +---------------------------+---------------------------------------------------------------------------------------------------------------------------+
-| end_date                  | Lookup active drivers in this date range. See :ref:`date-range-label` for description                                     |   
-+---------------------------+---------------------------------------------------------------------------------------------------------------------------+                           
+| end_date                  | Lookup active drivers in this date range. See :ref:`date-range-label` for description                                     |
++---------------------------+---------------------------------------------------------------------------------------------------------------------------+
 | fields                    | Comma separated list of fields to lookup. If nothing is specified, all data is returned.                                  |
 |                           |                                                                                                                           |
 |                           | - info : Returns information about driver [ Total kilometers driven,Drive time etc ]                                      |
-|                           | - driving_behavior: Returns driver score and event ratings calculated over the interval specified.                        |                                                                                                                             
-|                           | - daily_driving_behavior: Returns driver score and event ratings calculated for each day during the interval specified.   |                                                             
+|                           | - driving_behavior: Returns driver score and event ratings calculated over the interval specified.                        |
+|                           | - daily_driving_behavior: Returns driver score and event ratings calculated for each day during the interval specified.   |
 +---------------------------+---------------------------------------------------------------------------------------------------------------------------+
 | limit                     | See :ref:`pagination-label` section for description.                                                                      |
 +---------------------------+---------------------------------------------------------------------------------------------------------------------------+
@@ -61,7 +61,7 @@ Lookup active drivers in the given date range. An active driver is one who has a
 +---------------------------+---------------------------------------------------------------------------------------------------------------------------+
 | ids                       | Comma separated list of driver ids for which data should be returned. Even if these                                       |
 |                           | drivers are not active between start_date and end_date the response will contain info and                                 |
-|                           | score sections for these drivers.                                                                                         |
+|                           | driving_behavior sections for these drivers.                                                                              |
 +---------------------------+---------------------------------------------------------------------------------------------------------------------------+
 | group_id                  | If specified the list of drivers returned will be restricted to drivers that belong to                                    |
 |                           | the specified group. If a list of driver ids is explicitly given as query parameter then                                  |
@@ -157,11 +157,11 @@ Fleet Scores
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 | end_date                  | Lookup fleet score in this date range. See :ref:`date-range-label` for description                                                                     |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
-| fields                    | Comma separated list of fields to lookup. If nothing is specified, info, daily_driving_behavior and driving_behavior are returned.                     |                                   
+| fields                    | Comma separated list of fields to lookup. If nothing is specified, info, daily_driving_behavior and driving_behavior are returned.                     |
 |                           |                                                                                                                                                        |
 |                           | - info : Returns information about the fleet [ Total kilometers driven, Drive time etc ].                                                              |
-|                           | - driving_behavior: Returns driver score and event ratings calculated over the interval specified.                                                     |                                                                   
-|                           | - daily_driving_behavior: Returns driver score and event ratings calculated for each day during the interval specified.                                |                                                                                  
+|                           | - driving_behavior: Returns driver score and event ratings calculated over the interval specified.                                                     |
+|                           | - daily_driving_behavior: Returns driver score and event ratings calculated for each day during the interval specified.                                |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 | group_id                  | The fleet score is computed based on data from the specified group_id within the fleet.                                                                |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -199,7 +199,7 @@ Sample Response
 
 .. sourcecode:: bash
 
-  
+
     {
         "info": {
             "duration_seconds": 9999,
@@ -255,11 +255,11 @@ Driver Scores
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 | end_date                  | Lookup driver score in this date range. See :ref:`date-range-label` for description                                                                    |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
-| fields                    | Comma separated list of fields to lookup. If nothing is specified, info daily_driving_behavior and driving_behavior are returned.                      |                                  
+| fields                    | Comma separated list of fields to lookup. If nothing is specified, info daily_driving_behavior and driving_behavior are returned.                      |
 |                           |                                                                                                                                                        |
 |                           | - info : Returns information about driver [ Total kilometers driven, Drive time etc ]                                                                  |
 |                           | - driving_behavior: Returns latest driving behavior scores [ cautious, focused, control etc]                                                           |
-|                           | - daily_driving_behavior: Returns driver score and event ratings calculated for each day during the interval specified.                                |                                                                                  
+|                           | - daily_driving_behavior: Returns driver score and event ratings calculated for each day during the interval specified.                                |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 .. csv-table::
@@ -495,7 +495,7 @@ Trip Scores
 .. csv-table::
     :header: "Response Field", "Description"
     :widths: 15, 50
-    
+
     "trip_max_speed", "Maximum speed reached during the duration of this trip"
     "trip_id", "Unique Id assigned by Zendrive for the trip where the event occurred."
     "info.distance_km", "Distance in km of the trip."
@@ -601,7 +601,7 @@ Sample Response
             [
                 0.6710820000000001,
                 1516915715318,
-                "NA" 
+                "NA"
             ],
             [
                 1.0961006,
