@@ -28,7 +28,7 @@ This notification is sent by Zendrive when a trip uploaded by your application i
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Request Parameter         | Description                                                                                                                                            |
 +===========================+========================================================================================================================================================+
-| version                   | Currently, the value of this field is 3.                                                                                                               |
+| version                   | Currently, the value of this field is 3.                                                                                                       	     |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 | type                      | type for this notification is **TRIP_SCORED**.                                                                                                         |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -41,7 +41,7 @@ This notification is sent by Zendrive when a trip uploaded by your application i
 |                           |                                                                                                                                                        |
 |                           | - info : Recorded information about the trip [ Total kilometers driven, Drive time etc ].                                                              |
 |                           | - simple_path: A coarse GPS trail of the trip. Useful for visualization of the trip path.                                                              |
-|                           | - score: Driving behavior scores about the trip [ control, focused etc ].                                                                              |
+|                           | - score: Zendrive score of the driver.                                                                             				     |
 |                           | - speed_profile: The speed profile of the trip as a tuple (Driver's speed in MPH, Timestamp in ms, Speed limit on the road segment).                   |
 |                           | - events: Events detected by Zendrive during the trip. Events like speeding, hard braking, phone use etc are returned.                                 |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -88,8 +88,19 @@ Sample Notification
 					"overspeeding_rating": 5
 				}
 			},
-			"simple_path": [],
-			"trip_id": "1504811290303",
+			"simple_path": [
+				{
+            "latitude": 40.7048046,
+            "timestamp": "2018-01-25T16:28:35.318000-05:00",
+            "longitude": -73.7980828,
+            "time_millis": 1516915715318
+        },{
+            "latitude": 40.7048046,
+            "timestamp": "2018-01-25T16:29:10.805000-05:00",
+            "longitude": -73.7980314,
+            "time_millis": 1516915750805
+        }],
+			"trip_id": "1416227804134",
 			"events": [{
 					"event_type": 3,
 					"event_type_name": "OVERSPEEDING",

@@ -258,7 +258,7 @@ Driver Scores
 | fields                    | Comma separated list of fields to lookup. If nothing is specified, info daily_driving_behavior and driving_behavior are returned.                      |
 |                           |                                                                                                                                                        |
 |                           | - info : Returns information about driver [ Total kilometers driven, Drive time etc ]                                                                  |
-|                           | - driving_behavior: Returns latest driving behavior scores [ cautious, focused, control etc]                                                           |
+|                           | - driving_behavior: Returns driver score and event ratings calculated over the interval specified.                                                     |
 |                           | - daily_driving_behavior: Returns driver score and event ratings calculated for each day during the interval specified.                                |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 
