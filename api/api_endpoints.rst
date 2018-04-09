@@ -111,7 +111,7 @@ Sample Response
                   "version": "25"
               }],
               "distance_km": 9.041,
-              "duration_seconds": 4519,
+              "duration_seconds": 4519.34,
               "attributes": {
                   "phone": "+19999999999",
                   "first_name": "John",
@@ -202,7 +202,7 @@ Sample Response
 
     {
         "info": {
-            "duration_seconds": 9999,
+            "duration_seconds": 8400.32,
             "driver_count": 0,
             "distance_km": 0.0,
             "missing_data_driver_count": 0,
@@ -304,7 +304,7 @@ Sample Response
             "night_driving_fraction": 0.0,
             "device_info": [],
             "distance_km": 35.389,
-            "duration_seconds": 9468,
+            "duration_seconds": 9468.40,
             "attributes": {
                 "first_name": "John",
                 "last_name": " User",
@@ -538,7 +538,7 @@ Sample Response
             "distance_km": 11.023,
             "end_time": "2017-09-07T15:28:32-04:00",
             "tracking_id": "37",
-            "duration_seconds": 987,
+            "duration_seconds": 987.45,
             "start_time": "2017-09-07T15:08:10-04:00",
             "session_id": "1590149475"
         },
