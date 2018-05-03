@@ -520,7 +520,7 @@ Trip Scores
     "events[i].start_time", "Timestamp of when the event started in ISO format."
     "events[i].end_time", "Timestamp of when the event ended in ISO format."
     "events[i].event_type", "Numeric value associated with event. The possible values are 0 for 'HARD_BRAKE, 1 for RAPID_ACCELERATION, 2 for PHONE_USE,  3 for OVERSPEEDING and 4 for COLLISION"
-    "events[i].event_type_name", "Type of driving event. The possible types are **OVERSPEEDING, PHONE
+    "events[i].event_type_name", "Type of driving event. The possible types are **OVERSPEEDING, PHONE_USE
     , RAPID_ACCELERATION, HARD_BRAKE and COLLISION**."
     "events[i].average_driver_speed_kmph", "Average speed of the driver during the event. This is valid only for OVERSPEEDING event."
     "events[i].max_driver_speed_kmph", "Maximum speed of the driver during the event. This is valid only for OVERSPEEDING event"
