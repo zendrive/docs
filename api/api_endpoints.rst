@@ -446,7 +446,7 @@ Sample Response
                 "distance_km": 25.78,
                 "end_time": "2017-09-29T13:55:16-04:00",
                 "tracking_id": "39",
-                "drive_time_hours": "00:39",
+                "duration_seconds": 400.39,
                 "start_time": "2017-09-29T13:16:11-04:00",
                 "session_id": "1613190012"
             },
