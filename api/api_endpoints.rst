@@ -503,7 +503,7 @@ Trip Scores
     "info.start_time ", "Start time of trip in ISO format."
     "info.end_time", "End time of trip in ISO format"
     "info.session_id", "Session id attached the trip if specified in the Zendrive SDK when the trip was recorded."
-    "info.insurance_period", "This is valid only for trips recorded by Fairmatic customers using the SDK. This is the Fairmatic insurance period associated with this trip. This will be "N/A" if Fairmatic insurance does not apply to the customer or the trip."
+    "info.insurance_period", "This is valid only for trips recorded by Fairmatic customers using the SDK. This is the Fairmatic insurance period associated with this trip. This will be 'NA' if Fairmatic insurance does not apply to the customer or the trip."
     "simple_path", "An array of latitude, longitude, timestamp tuples representing a simplified path of the trip. The timestamp is in ISO format."
     "driving_behavior", Returns driver score and event ratings calculated over the interval specified."
     "driving_behavior.score.zendrive_score", "Zendrive score of the trip."
