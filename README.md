@@ -1,10 +1,5 @@
 Zendrive Analytics API Documentation.
 
-Clone this repo:
-```
-git clone git@github.com:zendrive/docs.git
-```
-
 Install sphinx:
 ```
 sudo pip install sphinx
@@ -18,7 +13,7 @@ make html
 
 View the generated html in a browser:
 ```
-firefox docs/analytics-api/_build/html/index.html
+open _build/html/index.html
 ```
 
 ### Resources
