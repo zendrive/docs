@@ -94,6 +94,7 @@ Lookup active drivers in the given date range. An active driver is one who has a
     "drivers[i].driving_behavior.event_rating.hard_brake_rating", "The hard brake rating of this driver at the end of the given date range."
     "drivers[i].driving_behavior.event_rating.phone_use_rating", "The phone use rating of this driver at the end of the given date range."
     "drivers[i].driving_behavior.event_rating.rapid_acceleration_rating", "The acceleration rating of this driver at the end of the given date range."
+    "drivers[i].driving_behavior.event_rating.hard_turn_rating", "The hard turn rating of this driver at the end of the given date range."
     "drivers[i].driving_behavior.event_rating.overspeeding_rating", "The overspeeding rating of this driver at the end of the given date range."
 
 Sample Response
@@ -128,6 +129,7 @@ Sample Response
                   "hard_brake_rating": 5,
                   "phone_use_rating": 5,
                   "rapid_acceleration_rating": 5,
+                  "hard_turn_rating": 5,
                   "overspeeding_rating": 5
               }
           },
@@ -183,6 +185,7 @@ Fleet Scores
     "driving_behavior.event_rating.hard_brake_rating", "Average hard brake rating across all drivers in the fleet in the given date range."
     "driving_behavior.event_rating.phone_use_rating", "Average phone use rating across all drivers in the fleet in the given date range"
     "driving_behavior.event_rating.rapid_acceleration_rating", "Average acceleration rating across all drivers in the fleet in the given date range."
+    "driving_behavior.event_rating.hard_turn_rating", "Average hard turn rating across all drivers in the fleet in the given date range."
     "driving_behavior.event_rating.overspeeding_rating", "Average overspeeding rating across all drivers in the fleet in the given date range."
     "daily_driving_behavior[i]", "Scores and Event Ratings for each day in the date range requested."
     "daily_driving_behavior[i].date", "Date for which scores are provided in this tuple. Date format is YYYY-MM-DD."
@@ -192,6 +195,7 @@ Fleet Scores
     "daily_driving_behavior[i].event_rating.hard_brake_rating", "Average hard brake rating across all drivers in the fleet on this particular date."
     "daily_driving_behavior[i].event_rating.phone_use_rating", "Average phone use rating across all drivers in the fleet on this particular date."
     "daily_driving_behavior[i].event_rating.rapid_acceleration_rating", "Average rapid acceleration rating across all drivers in the fleet on this particular date."
+    "daily_driving_behavior[i].event_rating.hard_turn_rating", "Average hard turn rating across all drivers in the fleet on this particular date."
     "daily_driving_behavior[i].event_rating.overspeeding_rating", "Average overspeeding rating across all drivers in the fleet on this particular date."
 
 Sample Response
@@ -216,6 +220,7 @@ Sample Response
                 "hard_brake_rating": 3,
                 "phone_use_rating": 3,
                 "rapid_acceleration_rating": 5,
+                "hard_turn_rating": 5,
                 "overspeeding_rating": 4
             }
         },
@@ -228,6 +233,7 @@ Sample Response
                 "hard_brake_rating": 3,
                 "phone_use_rating": 3,
                 "rapid_acceleration_rating": 3,
+                "hard_turn_rating": 3,
                 "overspeeding_rating": 3
             }
         },
@@ -281,7 +287,7 @@ Driver Scores
     "driving_behavior.event_rating", "A collection of various events for the driver during the interval specified. Note that each event here is an average of daily event ratings for the driver over the given interval."
     "driving_behavior.event_rating.hard_brake_rating", "Average hard brake rating of the driver at the end of the given date range."
     "driving_behavior.event_rating.phone_use_rating", "Average phone use rating of the driver at the end of the given date range."
-    "driving_behavior.event_rating.rapid_acceleration_rating", "Average rapid acceleration of the driver at the end of the given date range."
+    "driving_behavior.event_rating.hard_turn_rating", "Average hard turn rating of the driver at the end of the given date range."
     "driving_behavior.event_rating.overspeeding_rating", "Average overspeeding rating of the driver at the end of the given date range."
     "daily_driving_behavior[i]","Scores for each day in the date range requested."
     "daily_driving_behavior[i].date", "Date for which scores are provided in this tuple. Date format is YYYY-MM-DD."
@@ -291,6 +297,7 @@ Driver Scores
     "daily_driving_behavior[i].event_rating.hard_brake_rating", "Average hard brake rating across all drivers in the fleet on this particular date."
     "daily_driving_behavior[i].event_rating.phone_use_rating", "Average phone use rating across all drivers in the fleet on this particular date."
     "daily_driving_behavior[i].event_rating.rapid_acceleration_rating", "Average rapid acceleration rating across all drivers in the fleet on this particular date."
+    "daily_driving_behavior[i].event_rating.hard_turn_rating", "Average hard turn rating across all drivers in the fleet on this particular date."
     "daily_driving_behavior[i].event_rating.overspeeding_rating", "Average overspeeding rating across all drivers in the fleet on this particular date."
 
 Sample Response
@@ -320,6 +327,7 @@ Sample Response
                 "hard_brake_rating": 5,
                 "phone_use_rating": 4,
                 "rapid_acceleration_rating": 3,
+                "hard_turn_rating": 3,
                 "overspeeding_rating": 4
             }
         },
@@ -332,6 +340,7 @@ Sample Response
                 "hard_brake_rating": 3,
                 "phone_use_rating": 3,
                 "rapid_acceleration_rating": 3,
+                "hard_turn_rating": 3,
                 "overspeeding_rating": 3
             }
         }],
@@ -431,6 +440,7 @@ List Driver Trips
     "driving_behavior.event_rating.hard_brake_rating", "Hard brake rating of the trip."
     "driving_behavior.event_rating.phone_use_rating", "Phone use of rating"
     "driving_behavior.event_rating.rapid_acceleration_rating", "Rapid acceleration rating of the trip."
+    "driving_behavior.event_rating.hard_turn_rating", "Hard turn rating of the trip."
     "driving_behavior.event_rating.overspeeding_rating", "Overspeeding rating of the trip."
 
 Sample Response
@@ -458,6 +468,7 @@ Sample Response
                     "hard_brake_rating": 3,
                     "phone_use_rating": 4,
                     "rapid_acceleration_rating": 4,
+                    "hard_turn_rating": 4,
                     "overspeeding_rating": 3
                 }
             },
@@ -488,8 +499,8 @@ Trip Scores
 |                           | - simple_path: Returns a coarse GPS trail of the trip. Useful for visualization of the trip path.                                                      |
 |                           | - driving_behavior: Returns driver score and event ratings calculated over the interval specified.                                                     |
 |                           | - speed_profile: Returns the speed profile of the trip as a tuple (Driver's speed in MPH, Timestamp in ms, Speed limit on the road segment).           |
-|                           | - events: Returns events detected by Zendrive during the trip. Events like OverSpeeding, PhoneUse, AggressiveAcceleration, HardBrake and Collision are |
-|                           |   returned.                                                                                                                                            |
+|                           | - events: Returns events detected by Zendrive during the trip. Events like OverSpeeding, PhoneUse, AggressiveAcceleration, HardBrake, HardTurn and     |
+|                           |   Collision are returned.                                                                                                                              |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 .. csv-table::
@@ -511,6 +522,7 @@ Trip Scores
     "driving_behavior.event_rating.hard_brake_rating", "Hard brake rating of the trip"
     "driving_behavior.event_rating.phone_use_rating", "Phone use rating of the trip"
     "driving_behavior.event_rating.rapid_acceleration_rating", "Acceleration rating of the trip"
+    "driving_behavior.event_rating.hard_turn_rating", "Hard turn rating of the trip"
     "driving_behavior.event_rating.overspeeding_rating", "Overspeeding rating of the trip"
     "speed_profile", "An array of tuples containing Driver's speed in MPH, timestamp (Unix timestamp since epoch in milliseconds) and Speed limit on the road segment. The array is in timestamp ascending order."
     "events", "An array containing a list of driving events that happened during the trip. The events are low level details that are reflected in scores."
@@ -520,9 +532,9 @@ Trip Scores
     "events[i].longitude_end", "Longitude of location where the event ended."
     "events[i].start_time", "Timestamp of when the event started in ISO format."
     "events[i].end_time", "Timestamp of when the event ended in ISO format."
-    "events[i].event_type", "Numeric value associated with event. The possible values are 0 for 'HARD_BRAKE, 1 for RAPID_ACCELERATION, 2 for PHONE_USE,  3 for OVERSPEEDING and 4 for COLLISION"
+    "events[i].event_type", "Numeric value associated with event. The possible values are 0 for 'HARD_BRAKE, 1 for RAPID_ACCELERATION, 2 for PHONE_USE,  3 for OVERSPEEDING, 4 for COLLISION, 5 for HARD_TURN"
     "events[i].event_type_name", "Type of driving event. The possible types are **OVERSPEEDING, PHONE_USE
-    , RAPID_ACCELERATION, HARD_BRAKE and COLLISION**."
+    , RAPID_ACCELERATION, HARD_BRAKE, HARD_TURN and COLLISION**."
     "events[i].average_driver_speed_kmph", "Average speed of the driver during the event. This is valid only for OVERSPEEDING event."
     "events[i].max_driver_speed_kmph", "Maximum speed of the driver during the event. This is valid only for OVERSPEEDING event"
     "events[i].posted_speed_limit_kmph", "Posted legal speed limit where the event occurred. This is valid only for OVERSPEEDING event"
@@ -551,6 +563,7 @@ Sample Response
                 "hard_brake_rating": 3,
                 "phone_use_rating": 4,
                 "rapid_acceleration_rating": 4,
+                "hard_turn_rating": 4,
                 "overspeeding_rating": 5
             }
         },
