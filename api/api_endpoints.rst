@@ -500,7 +500,7 @@ Trip Scores
 |                           | - driving_behavior: Returns driver score and event ratings calculated over the interval specified.                                                     |
 |                           | - speed_profile: Returns the speed profile of the trip as a tuple (Driver's speed in MPH, Timestamp in ms, Speed limit on the road segment).           |
 |                           | - events: Returns events detected by Zendrive during the trip. Events like OverSpeeding, PhoneUse, AggressiveAcceleration, HardBrake, HardTurn and     |
-|                           |   Collision are returned.                                                                                                                              |
+|                           |   Collision are returned. *PhoneScreenInteraction is currently in beta.*                                                                               |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 .. csv-table::
@@ -532,9 +532,8 @@ Trip Scores
     "events[i].longitude_end", "Longitude of location where the event ended."
     "events[i].start_time", "Timestamp of when the event started in ISO format."
     "events[i].end_time", "Timestamp of when the event ended in ISO format."
-    "events[i].event_type", "Numeric value associated with event. The possible values are 0 for 'HARD_BRAKE, 1 for RAPID_ACCELERATION, 2 for PHONE_USE,  3 for OVERSPEEDING, 4 for COLLISION, 5 for HARD_TURN"
-    "events[i].event_type_name", "Type of driving event. The possible types are **OVERSPEEDING, PHONE_USE
-    , RAPID_ACCELERATION, HARD_BRAKE, HARD_TURN and COLLISION**."
+    "events[i].event_type", "Numeric value associated with event. The possible values are 0 for 'HARD_BRAKE, 1 for RAPID_ACCELERATION, 2 for PHONE_USE,  3 for OVERSPEEDING, 4 for COLLISION, 5 for HARD_TURN, 6 for PHONE_SCREEN_INTERACTION"
+    "events[i].event_type_name", "Type of driving event. The possible types are **OVERSPEEDING, PHONE_USE, RAPID_ACCELERATION, HARD_BRAKE, HARD_TURN, PHONE_SCREEN_INTERACTION and COLLISION**."
     "events[i].average_driver_speed_kmph", "Average speed of the driver during the event. This is valid only for OVERSPEEDING event."
     "events[i].max_driver_speed_kmph", "Maximum speed of the driver during the event. This is valid only for OVERSPEEDING event"
     "events[i].posted_speed_limit_kmph", "Posted legal speed limit where the event occurred. This is valid only for OVERSPEEDING event"
@@ -598,6 +597,15 @@ Sample Response
             "longitude_end": -74.2960023321903,
             "event_type": 0,
             "event_type_name": "HARD_BRAKE",
+            "start_time": "2017-09-07T15:20:28-04:00",
+            "longitude_start": -74.2960023321903,
+            "end_time": "2017-09-07T15:20:28-04:00"
+        }, {
+            "latitude_end": 40.9182284027719,
+            "latitude_start": 40.9182284027719,
+            "longitude_end": -74.2960023321903,
+            "event_type": 6,
+            "event_type_name": "PHONE_SCREEN_INTERACTION",
             "start_time": "2017-09-07T15:20:28-04:00",
             "longitude_start": -74.2960023321903,
             "end_time": "2017-09-07T15:20:28-04:00"
